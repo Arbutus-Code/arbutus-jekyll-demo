@@ -1,5 +1,6 @@
-PATH
-  remote: ../arbutus-jekyll-theme
+GIT
+  remote: https://github.com/Arbutus-Code/arbutus-jekyll-theme.git
+  revision: 4c3dbef68161a2bc56b119cda105bb8b82a15bc7
   specs:
     arbutus-theme (0.1.0)
       jekyll (~> 4.3)
