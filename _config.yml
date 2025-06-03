@@ -3,7 +3,7 @@ description: Protecting Vancouver Island's iconic native trees
 logo: assets/images/arbutus-tree-black.svg
 footer_logo: assets/images/arbutus-tree-white.svg
 baseurl: ""
-url: ""
+url: "https://jekyll.arbutuscode.ca"
 permalink: pretty
 favicons:
   - rel: icon
