@@ -1,0 +1,25 @@
+main:
+  - title: About
+    url: /about/
+  - title: Conservation Projects
+    url: /projects/
+  - title: Get Involved
+    url: /get-involved/
+  - title: Support Us
+    url: /donate/
+  - title: News & Updates
+    url: /updates/
+
+footer:
+  - title: About
+    url: /about/
+  - title: Conservation Projects
+    url: /projects/
+  - title: Get Involved
+    url: /get-involved/
+  - title: Support Us
+    url: /donate/
+  - title: News & Updates
+    url: /updates/
+  - title: Privacy Policy
+    url: /privacy-policy/

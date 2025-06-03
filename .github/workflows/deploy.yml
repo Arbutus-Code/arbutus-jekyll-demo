@@ -1,0 +1,49 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+      
+      - name: Create GitHub Actions Gemfile
+        run: |
+          cat > Gemfile.github-actions << EOL
+          source "https://rubygems.org"
+          gem "jekyll", "~> 3.9.0"
+          gem "webrick"
+          gem "bigdecimal"
+          gem "kramdown-parser-gfm"
+          gem "arbutus-theme", github: "Arbutus-Code/arbutus-jekyll-theme", branch: "main"
+          group :jekyll_plugins do
+            gem "jekyll-feed"
+            gem "jekyll-seo-tag"
+          end
+          EOL
+          mv Gemfile.github-actions Gemfile
+      
+      - name: Build site
+        run: |
+          bundle install
+          bundle exec jekyll build
+      
+      - name: Deploy to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          source: "_site/"
+          target: "/path/to/web/directory"
