@@ -8,7 +8,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    env:
+      DECAP_CMS_GITHUB_CLIENT_ID: ${{ secrets.DECAP_CMS_GITHUB_CLIENT_ID }}
+      DECAP_CMS_GITHUB_CLIENT_SECRET: ${{ secrets.DECAP_CMS_GITHUB_CLIENT_SECRET }}
     steps:
       - uses: actions/checkout@v3
 

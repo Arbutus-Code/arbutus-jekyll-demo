@@ -1,0 +1,527 @@
+backend:
+  name: github
+  repo: Arbutus-Code/arbutus-jekyll-theme
+  branch: main
+  base_url: https://jekyll.arbutuscode.ca
+
+# Media storage (optional, but recommended)
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+# Editor settings
+locale: "en"
+show_preview_links: true
+
+# Site settings
+site_url: https://jekyll.arbutuscode.ca
+display_url: https://jekyll.arbutuscode.ca
+
+# Collections
+collections:
+  # Pages collection for standard pages
+  - name: "pages"
+    label: "Pages"
+    folder: "/"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "page" }
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Permalink",
+          name: "permalink",
+          widget: "string",
+          pattern: ["^/[a-zA-Z0-9-_/]*/$", "Must start and end with /"],
+        }
+      - label: "Page Sections"
+        name: "sections"
+        widget: "list"
+        types:
+          # Hero Section
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "hero",
+                }
+              - { label: "Title", name: "title", widget: "string" }
+              - {
+                  label: "Subtitle",
+                  name: "subtitle",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                }
+              - {
+                  label: "Image Alt Text",
+                  name: "image_alt",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Call to Action"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Button Text", name: "text", widget: "string" }
+                  - { label: "Button URL", name: "url", widget: "string" }
+
+          # Text Section
+          - label: "Text Section"
+            name: "text-section"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "text-section",
+                }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Content", name: "text", widget: "markdown" }
+
+          # Split Section
+          - label: "Split Section"
+            name: "split"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "split",
+                }
+              - {
+                  label: "Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                }
+              - {
+                  label: "Image Alt Text",
+                  name: "image_alt",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Image Position",
+                  name: "image_position",
+                  widget: "select",
+                  options: ["left", "right"],
+                  default: "left",
+                  required: false,
+                }
+              - {
+                  label: "Image Caption",
+                  name: "image_caption",
+                  widget: "string",
+                  required: false,
+                }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Content", name: "text", widget: "markdown" }
+
+          # CTA Section
+          - label: "Call to Action Section"
+            name: "cta"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "cta",
+                }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - {
+                  label: "Center Content",
+                  name: "center_content",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+              - label: "Image"
+                name: "image"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "URL", name: "url", widget: "image" }
+                  - {
+                      label: "Alt Text",
+                      name: "alt",
+                      widget: "string",
+                      required: false,
+                    }
+              - label: "Primary Button"
+                name: "primary_button"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Button Text", name: "text", widget: "string" }
+                  - { label: "Button URL", name: "url", widget: "string" }
+              - label: "Secondary Button"
+                name: "secondary_button"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Button Text", name: "text", widget: "string" }
+                  - { label: "Button URL", name: "url", widget: "string" }
+
+          # Featured Cards
+          - label: "Featured Cards"
+            name: "featured_cards"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "featured_cards",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Cards"
+                name: "cards"
+                widget: "list"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - {
+                      label: "Description",
+                      name: "description",
+                      widget: "text",
+                    }
+                  - { label: "URL", name: "url", widget: "string" }
+                  - {
+                      label: "CTA Text",
+                      name: "cta_text",
+                      widget: "string",
+                      default: "Learn More",
+                      required: false,
+                    }
+                  - {
+                      label: "Media Type",
+                      name: "media_type",
+                      widget: "select",
+                      options: ["image", "icon"],
+                      default: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image",
+                      name: "image",
+                      widget: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image Alt Text",
+                      name: "image_alt",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Icon",
+                      name: "icon",
+                      widget: "string",
+                      required: false,
+                    }
+
+          # Contact Form
+          - label: "Contact Form"
+            name: "contact_form"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "contact_form",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Access Key",
+                  name: "access_key",
+                  widget: "string",
+                  required: false,
+                  hint: "Leave empty to use the site default",
+                }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                  hint: "Leave empty to use the site default",
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                  hint: "Leave empty to use the site default",
+                }
+
+          # Contact Form with Socials
+          - label: "Contact Form with Socials"
+            name: "contact_form_socials"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "contact_form_socials",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Access Key",
+                  name: "access_key",
+                  widget: "string",
+                  required: false,
+                  hint: "Leave empty to use the site default",
+                }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                  hint: "Leave empty to use the site default",
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                  hint: "Leave empty to use the site default",
+                }
+              - {
+                  label: "Show Titles",
+                  name: "show_titles",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+
+          # Team Members
+          - label: "Team Members"
+            name: "team_members"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "team",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Show Images",
+                  name: "show_images",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+              - label: "Members"
+                name: "members"
+                widget: "list"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - {
+                      label: "Title",
+                      name: "title",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Image",
+                      name: "image",
+                      widget: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image Alt Text",
+                      name: "image_alt",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Bio",
+                      name: "bio",
+                      widget: "text",
+                      required: false,
+                    }
+
+  # Blog posts collection
+  - name: "posts"
+    label: "Blog Posts"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - {
+          label: "Featured Image",
+          name: "image",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Image Alt Text",
+          name: "image_alt",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # Data files collection for site configuration
+  - name: "config"
+    label: "Site Configuration"
+    files:
+      # Site config
+      - label: "Site Settings"
+        name: "site_config"
+        file: "_config.yml"
+        fields:
+          - { label: "Site Title", name: "title", widget: "string" }
+          - { label: "Site Description", name: "description", widget: "string" }
+          - { label: "Logo", name: "logo", widget: "image" }
+          - { label: "Footer Logo", name: "footer_logo", widget: "image" }
+          - {
+              label: "Base URL",
+              name: "baseurl",
+              widget: "string",
+              required: false,
+            }
+          - { label: "URL", name: "url", widget: "string" }
+          - label: "Favicons"
+            name: "favicons"
+            widget: "list"
+            fields:
+              - { label: "Relation", name: "rel", widget: "string" }
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Sizes",
+                  name: "sizes",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Icon File"
+                name: "href"
+                widget: "image"
+                media_folder: "/"
+                public_folder: "/"
+          - label: "Contact Information"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Address", name: "address", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Phone", name: "phone", widget: "string" }
+          - label: "Web App Manifest"
+            name: "webmanifest"
+            widget: "object"
+            summary: "PWA Settings (site.webmanifest)"
+            fields:
+              - { label: "App Name", name: "name", widget: "string", required: false }
+              - { label: "Short Name", name: "short_name", widget: "string", required: false }
+              - label: "Icons"
+                name: "icons"
+                widget: "list"
+                summary: "{{fields.sizes}} icon"
+                fields:
+                  - label: "Icon File"
+                    name: "src"
+                    widget: "image"
+                    media_folder: "/"
+                    public_folder: "/"
+                  - { label: "Sizes", name: "sizes", widget: "string" }
+                  - { label: "Type", name: "type", widget: "string", default: "image/png" }
+              - { label: "Theme Color", name: "theme_color", widget: "color", default: "#ffffff", required: false }
+              - { label: "Background Color", name: "background_color", widget: "color", default: "#ffffff", required: false }
+              - { label: "Display Mode", name: "display", widget: "select", options: ["standalone", "fullscreen", "minimal-ui", "browser"], default: "standalone", required: false }
+          - label: "Social Media"
+            name: "socials"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - {
+                  label: "Icon",
+                  name: "icon",
+                  widget: "string",
+                  hint: "Icon name from the theme's icon set",
+                }
+          - label: "Web3Forms"
+            name: "web3forms"
+            widget: "object"
+            fields:
+              - { label: "Access Key", name: "access_key", widget: "string" }
+              - { label: "Subject", name: "subject", widget: "string" }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                }
+
+      # Navigation
+      - label: "Navigation"
+        name: "navigation"
+        file: "_data/navigation.yml"
+        fields:
+          - label: "Main Navigation Links"
+            name: "main_nav_links"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+          - label: "Footer Navigation Links"
+            name: "footer_nav_links"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
