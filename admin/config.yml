@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Arbutus-Code/arbutus-jekyll-theme
   branch: main
-  base_url: https://jekyll.arbutuscode.ca
+  auth_endpoint: https://api.decapcms.org/auth
 
 # Media storage (optional, but recommended)
 media_folder: "assets/images/uploads"
