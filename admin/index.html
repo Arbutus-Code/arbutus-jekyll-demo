@@ -3,37 +3,19 @@ layout: null
 ---
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arbutus CMS</title>
-    <link href="https://unpkg.com/decap-cms@^3.0.0/dist/cms.css" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="nc-root"></div>
-    <script>
-      fetch('config.yml')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Failed to load config.yml: ${response.status} ${response.statusText}`);
-          }
-          return response.text();
-        })
-        .then(yaml => {
-          console.log('Config loaded successfully');
-          window.CMS_CONFIG = yaml;
-          const script = document.createElement('script');
-          script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
-          document.body.appendChild(script);
-        })
-        .catch(error => {
-          console.error('Error loading config:', error);
-          document.getElementById('nc-root').innerHTML = `<div style="padding: 20px; background-color: #f44336; color: white; margin-bottom: 15px;">
-            <h3>Configuration Error</h3>
-            <p>${error.message}</p>
-            <p>Check your config.yml file for syntax errors.</p>
-          </div>`;
-        });
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arbutus CMS</title>
+  <!-- Include the Decap CMS stylesheet -->
+  <link href="https://unpkg.com/decap-cms@^3.0.0/dist/cms.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Decap CMS will mount here -->
+  <div id="nc-root"></div>
+  <!-- Include the Decap CMS script -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Include your custom Decap CMS configuration script -->
+  <script src="config.js"></script>
+</body>
 </html>
