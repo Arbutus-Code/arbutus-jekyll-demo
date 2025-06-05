@@ -13,14 +13,27 @@ layout: null
     <div id="nc-root"></div>
     <script>
       fetch('config.yml')
-        .then(response => response.text())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Failed to load config.yml: ${response.status} ${response.statusText}`);
+          }
+          return response.text();
+        })
         .then(yaml => {
+          console.log('Config loaded successfully');
           window.CMS_CONFIG = yaml;
           const script = document.createElement('script');
           script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
           document.body.appendChild(script);
         })
-        .catch(error => console.error('Error loading config.yml:', error));
+        .catch(error => {
+          console.error('Error loading config:', error);
+          document.getElementById('nc-root').innerHTML = `<div style="padding: 20px; background-color: #f44336; color: white; margin-bottom: 15px;">
+            <h3>Configuration Error</h3>
+            <p>${error.message}</p>
+            <p>Check your config.yml file for syntax errors.</p>
+          </div>`;
+        });
     </script>
   </body>
 </html>

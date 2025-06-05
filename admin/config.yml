@@ -8,7 +8,7 @@ backend:
   auth_params:
     org: arbutus
 
-# Media storage (optional, but recommended)
+# Media storage
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
@@ -22,12 +22,14 @@ display_url: https://jekyll.arbutuscode.ca
 
 # Collections
 collections:
-  # Pages collection for standard pages
+  # Pages collection for standard pages (e.g., about.md, donate.md)
   - name: "pages"
     label: "Pages"
+    label_singular: "Page"
     folder: "/"
     create: true
     slug: "{{slug}}"
+    filter: { field: "layout", value: "page" }
     editor:
       preview: true
     fields:
@@ -38,12 +40,13 @@ collections:
           name: "permalink",
           widget: "string",
           pattern: ["^/[a-zA-Z0-9-_/]*/$", "Must start and end with /"],
+          required: false,
         }
       - label: "Page Sections"
         name: "sections"
         widget: "list"
         types:
-          # Hero Section
+          # Hero Section (docs: hero)
           - label: "Hero Section"
             name: "hero"
             widget: "object"
@@ -72,6 +75,7 @@ collections:
                   name: "image_alt",
                   widget: "string",
                   required: false,
+                  hint: "Defaults to title if not provided",
                 }
               - label: "Call to Action"
                 name: "cta"
@@ -81,7 +85,7 @@ collections:
                   - { label: "Button Text", name: "text", widget: "string" }
                   - { label: "Button URL", name: "url", widget: "string" }
 
-          # Text Section
+          # Text Section (docs: text-section)
           - label: "Text Section"
             name: "text-section"
             widget: "object"
@@ -92,10 +96,15 @@ collections:
                   widget: "hidden",
                   default: "text-section",
                 }
-              - { label: "Heading", name: "heading", widget: "string" }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
               - { label: "Content", name: "text", widget: "markdown" }
 
-          # Split Section
+          # Split Section (docs: split)
           - label: "Split Section"
             name: "split"
             widget: "object"
@@ -117,6 +126,7 @@ collections:
                   name: "image_alt",
                   widget: "string",
                   required: false,
+                  hint: "Defaults to heading if not provided",
                 }
               - {
                   label: "Image Position",
@@ -132,11 +142,21 @@ collections:
                   widget: "string",
                   required: false,
                 }
-              - { label: "Heading", name: "heading", widget: "string" }
-              - { label: "Content", name: "text", widget: "markdown" }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Content",
+                  name: "text",
+                  widget: "markdown",
+                  required: false,
+                }
 
-          # CTA Section
-          - label: "Call to Action Section"
+          # CTA Section (docs: cta)
+          - label: "CTA Section"
             name: "cta"
             widget: "object"
             fields:
@@ -172,18 +192,18 @@ collections:
                 widget: "object"
                 required: false
                 fields:
-                  - { label: "Button Text", name: "text", widget: "string" }
-                  - { label: "Button URL", name: "url", widget: "string" }
+                  - { label: "Text", name: "text", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
               - label: "Secondary Button"
                 name: "secondary_button"
                 widget: "object"
                 required: false
                 fields:
-                  - { label: "Button Text", name: "text", widget: "string" }
-                  - { label: "Button URL", name: "url", widget: "string" }
+                  - { label: "Text", name: "text", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
 
-          # Featured Cards
-          - label: "Featured Cards"
+          # Featured Cards Section (docs: featured_cards)
+          - label: "Featured Cards Section"
             name: "featured_cards"
             widget: "object"
             fields:
@@ -222,7 +242,67 @@ collections:
                       name: "media_type",
                       widget: "select",
                       options: ["image", "icon"],
-                      default: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image",
+                      name: "image",
+                      widget: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image Alt Text",
+                      name: "image_alt",
+                      widget: "string",
+                      required: false,
+                      hint: "Defaults to card title",
+                    }
+                  - {
+                      label: "Icon",
+                      name: "icon",
+                      widget: "string",
+                      required: false,
+                    }
+
+          # Team Members Section (docs: team_members)
+          - label: "Team Members Section"
+            name: "team_members"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "team_members",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Show Images",
+                  name: "show_images",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+              - label: "Members"
+                name: "members"
+                widget: "list"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - {
+                      label: "Title",
+                      name: "title",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Bio",
+                      name: "bio",
+                      widget: "text",
                       required: false,
                     }
                   - {
@@ -237,15 +317,9 @@ collections:
                       widget: "string",
                       required: false,
                     }
-                  - {
-                      label: "Icon",
-                      name: "icon",
-                      widget: "string",
-                      required: false,
-                    }
 
-          # Contact Form
-          - label: "Contact Form"
+          # Contact Form Section (docs: contact_form)
+          - label: "Contact Form Section"
             name: "contact_form"
             widget: "object"
             fields:
@@ -262,28 +336,41 @@ collections:
                   required: false,
                 }
               - {
+                  label: "Description",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+              - {
                   label: "Access Key",
                   name: "access_key",
                   widget: "string",
                   required: false,
-                  hint: "Leave empty to use the site default",
+                  hint: "Web3Forms. Leave empty to use site default.",
                 }
               - {
                   label: "Subject",
                   name: "subject",
                   widget: "string",
                   required: false,
-                  hint: "Leave empty to use the site default",
+                  hint: "Web3Forms. Leave empty to use site default.",
                 }
               - {
                   label: "hCaptcha Site Key",
                   name: "hcaptcha_sitekey",
                   widget: "string",
                   required: false,
-                  hint: "Leave empty to use the site default",
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Submit Button Text",
+                  name: "submit_text",
+                  widget: "string",
+                  default: "Send Message",
+                  required: false,
                 }
 
-          # Contact Form with Socials
+          # Contact Form with Socials Section (docs: contact_form_socials)
           - label: "Contact Form with Socials"
             name: "contact_form_socials"
             widget: "object"
@@ -311,21 +398,28 @@ collections:
                   name: "access_key",
                   widget: "string",
                   required: false,
-                  hint: "Leave empty to use the site default",
+                  hint: "Web3Forms. Leave empty to use site default.",
                 }
               - {
                   label: "Subject",
                   name: "subject",
                   widget: "string",
                   required: false,
-                  hint: "Leave empty to use the site default",
+                  hint: "Web3Forms. Leave empty to use site default.",
                 }
               - {
                   label: "hCaptcha Site Key",
                   name: "hcaptcha_sitekey",
                   widget: "string",
                   required: false,
-                  hint: "Leave empty to use the site default",
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Submit Button Text",
+                  name: "submit_text",
+                  widget: "string",
+                  default: "Send Message",
+                  required: false,
                 }
               - {
                   label: "Show Titles",
@@ -335,63 +429,10 @@ collections:
                   required: false,
                 }
 
-          # Team Members
-          - label: "Team Members"
-            name: "team_members"
-            widget: "object"
-            fields:
-              - {
-                  label: "Type",
-                  name: "type",
-                  widget: "hidden",
-                  default: "team",
-                }
-              - {
-                  label: "Heading",
-                  name: "heading",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Show Images",
-                  name: "show_images",
-                  widget: "boolean",
-                  default: true,
-                  required: false,
-                }
-              - label: "Members"
-                name: "members"
-                widget: "list"
-                fields:
-                  - { label: "Name", name: "name", widget: "string" }
-                  - {
-                      label: "Title",
-                      name: "title",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Image",
-                      name: "image",
-                      widget: "image",
-                      required: false,
-                    }
-                  - {
-                      label: "Image Alt Text",
-                      name: "image_alt",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Bio",
-                      name: "bio",
-                      widget: "text",
-                      required: false,
-                    }
-
   # Blog posts collection
   - name: "posts"
     label: "Blog Posts"
+    label_singular: "Blog Post"
     folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
@@ -416,29 +457,49 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  # Data files collection for site configuration
-  - name: "config"
+  # Site configuration files
+  - name: "config_files"
     label: "Site Configuration"
+    label_singular: "Configuration File"
     files:
-      # Site config
+      # Site settings (_config.yml)
       - label: "Site Settings"
         name: "site_config"
         file: "_config.yml"
+        editor:
+          preview: false
         fields:
           - { label: "Site Title", name: "title", widget: "string" }
-          - { label: "Site Description", name: "description", widget: "string" }
-          - { label: "Logo", name: "logo", widget: "image" }
-          - { label: "Footer Logo", name: "footer_logo", widget: "image" }
+          - {
+              label: "Site Description",
+              name: "description",
+              widget: "string",
+              required: false,
+            }
+          - { label: "Logo", name: "logo", widget: "image", required: false }
+          - {
+              label: "Footer Logo",
+              name: "footer_logo",
+              widget: "image",
+              required: false,
+            }
           - {
               label: "Base URL",
               name: "baseurl",
               widget: "string",
               required: false,
+              hint: "Usually empty or e.g., /my-repo if hosted in a subdirectory",
             }
-          - { label: "URL", name: "url", widget: "string" }
+          - {
+              label: "URL",
+              name: "url",
+              widget: "string",
+              hint: "Full site URL, e.g., https://example.com",
+            }
           - label: "Favicons"
             name: "favicons"
             widget: "list"
+            required: false
             fields:
               - { label: "Relation", name: "rel", widget: "string" }
               - {
@@ -453,78 +514,54 @@ collections:
                   widget: "string",
                   required: false,
                 }
-              - label: "Icon File"
-                name: "href"
-                widget: "image"
-                media_folder: "/"
-                public_folder: "/"
+              - { label: "Href", name: "href", widget: "string" }
+          - label: "Default Manifest Icons"
+            name: "default_manifest_icons"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Source", name: "src", widget: "string" }
+              - { label: "Sizes", name: "sizes", widget: "string" }
+              - { label: "Type", name: "type", widget: "string" }
+              - {
+                  label: "Relation",
+                  name: "rel",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Href",
+                  name: "href",
+                  widget: "string",
+                  required: false,
+                }
           - label: "Contact Information"
             name: "contact"
             widget: "object"
-            fields:
-              - { label: "Address", name: "address", widget: "string" }
-              - { label: "Email", name: "email", widget: "string" }
-              - { label: "Phone", name: "phone", widget: "string" }
-          - label: "Web App Manifest"
-            name: "webmanifest"
-            widget: "object"
-            summary: "PWA Settings (site.webmanifest)"
+            required: false
             fields:
               - {
-                  label: "App Name",
-                  name: "name",
+                  label: "Address",
+                  name: "address",
                   widget: "string",
                   required: false,
                 }
               - {
-                  label: "Short Name",
-                  name: "short_name",
+                  label: "Email",
+                  name: "email",
                   widget: "string",
                   required: false,
                 }
-              - label: "Icons"
-                name: "icons"
-                widget: "list"
-                summary: "{{fields.sizes}} icon"
-                fields:
-                  - label: "Icon File"
-                    name: "src"
-                    widget: "image"
-                    media_folder: "/"
-                    public_folder: "/"
-                  - { label: "Sizes", name: "sizes", widget: "string" }
-                  - {
-                      label: "Type",
-                      name: "type",
-                      widget: "string",
-                      default: "image/png",
-                    }
               - {
-                  label: "Theme Color",
-                  name: "theme_color",
-                  widget: "color",
-                  default: "#ffffff",
+                  label: "Phone",
+                  name: "phone",
+                  widget: "string",
                   required: false,
                 }
-              - {
-                  label: "Background Color",
-                  name: "background_color",
-                  widget: "color",
-                  default: "#ffffff",
-                  required: false,
-                }
-              - {
-                  label: "Display Mode",
-                  name: "display",
-                  widget: "select",
-                  options:
-                    ["standalone", "fullscreen", "minimal-ui", "browser"],
-                  default: "standalone",
-                  required: false,
-                }
-          - label: "Social Media"
+          - label: "Social Media Links"
             name: "socials"
             widget: "list"
+            required: false
             fields:
               - { label: "Name", name: "name", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
@@ -532,25 +569,39 @@ collections:
                   label: "Icon",
                   name: "icon",
                   widget: "string",
-                  hint: "Icon name from the theme's icon set",
+                  hint: "FontAwesome icon name, e.g., twitter, facebook-f",
                 }
-          - label: "Web3Forms"
+          - label: "Web3Forms Configuration"
             name: "web3forms"
             widget: "object"
+            required: false
             fields:
               - { label: "Access Key", name: "access_key", widget: "string" }
-              - { label: "Subject", name: "subject", widget: "string" }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                }
               - {
                   label: "hCaptcha Site Key",
                   name: "hcaptcha_sitekey",
                   widget: "string",
                   required: false,
                 }
+          - {
+              label: "Theme",
+              name: "theme",
+              widget: "string",
+              default: "arbutus-theme",
+            }
 
-      # Navigation
+      # Navigation (_data/navigation.yml)
       - label: "Navigation"
         name: "navigation"
         file: "_data/navigation.yml"
+        editor:
+          preview: false
         fields:
           - label: "Main Navigation Links"
             name: "main_nav_links"
@@ -560,6 +611,23 @@ collections:
               - { label: "Link", name: "link", widget: "string" }
           - label: "Footer Navigation Links"
             name: "footer_nav_links"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+
+      - label: "Navigation"
+        name: "navigation"
+        file: "_data/navigation.yml"
+        fields:
+          - label: "Main Navigation Links"
+            name: "main"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+          - label: "Footer Navigation Links"
+            name: "footer"
             widget: "list"
             fields:
               - { label: "Name", name: "name", widget: "string" }
