@@ -11,6 +11,16 @@ layout: null
   </head>
   <body>
     <div id="nc-root"></div>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      fetch('config.yml')
+        .then(response => response.text())
+        .then(yaml => {
+          window.CMS_CONFIG = yaml;
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+          document.body.appendChild(script);
+        })
+        .catch(error => console.error('Error loading config.yml:', error));
+    </script>
   </body>
 </html>
