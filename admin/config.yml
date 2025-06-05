@@ -2,7 +2,9 @@ backend:
   name: github
   repo: Arbutus-Code/arbutus-jekyll-theme
   branch: main
-  auth_endpoint: https://api.decapcms.org/auth
+  base_url: https://oauth.arbutuscode.ca
+  auth_endpoint: /auth?org=arbutus
+  site_domain: https://jekyll.arbutuscode.ca
 
 # Media storage (optional, but recommended)
 media_folder: "assets/images/uploads"
@@ -466,8 +468,18 @@ collections:
             widget: "object"
             summary: "PWA Settings (site.webmanifest)"
             fields:
-              - { label: "App Name", name: "name", widget: "string", required: false }
-              - { label: "Short Name", name: "short_name", widget: "string", required: false }
+              - {
+                  label: "App Name",
+                  name: "name",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Short Name",
+                  name: "short_name",
+                  widget: "string",
+                  required: false,
+                }
               - label: "Icons"
                 name: "icons"
                 widget: "list"
@@ -479,10 +491,35 @@ collections:
                     media_folder: "/"
                     public_folder: "/"
                   - { label: "Sizes", name: "sizes", widget: "string" }
-                  - { label: "Type", name: "type", widget: "string", default: "image/png" }
-              - { label: "Theme Color", name: "theme_color", widget: "color", default: "#ffffff", required: false }
-              - { label: "Background Color", name: "background_color", widget: "color", default: "#ffffff", required: false }
-              - { label: "Display Mode", name: "display", widget: "select", options: ["standalone", "fullscreen", "minimal-ui", "browser"], default: "standalone", required: false }
+                  - {
+                      label: "Type",
+                      name: "type",
+                      widget: "string",
+                      default: "image/png",
+                    }
+              - {
+                  label: "Theme Color",
+                  name: "theme_color",
+                  widget: "color",
+                  default: "#ffffff",
+                  required: false,
+                }
+              - {
+                  label: "Background Color",
+                  name: "background_color",
+                  widget: "color",
+                  default: "#ffffff",
+                  required: false,
+                }
+              - {
+                  label: "Display Mode",
+                  name: "display",
+                  widget: "select",
+                  options:
+                    ["standalone", "fullscreen", "minimal-ui", "browser"],
+                  default: "standalone",
+                  required: false,
+                }
           - label: "Social Media"
             name: "socials"
             widget: "list"
