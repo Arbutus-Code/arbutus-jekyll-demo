@@ -3,8 +3,10 @@ backend:
   repo: Arbutus-Code/arbutus-jekyll-theme
   branch: main
   base_url: https://oauth.arbutuscode.ca
-  auth_endpoint: /auth?org=arbutus
+  auth_endpoint: auth
   site_domain: https://jekyll.arbutuscode.ca
+  auth_params:
+    org: arbutus
 
 # Media storage (optional, but recommended)
 media_folder: "assets/images/uploads"
