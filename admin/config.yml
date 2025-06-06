@@ -1,12 +1,10 @@
 backend:
   name: github
-  repo: Arbutus-Code/arbutus-jekyll-theme
+  repo: Arbutus-Code/arbutus-jekyll-demo
   branch: main
   base_url: https://oauth.arbutuscode.ca
   auth_endpoint: /auth
   site_domain: https://jekyll.arbutuscode.ca
-  auth_params:
-    org: arbutus
 
 # Media storage
 media_folder: "assets/images/uploads"
