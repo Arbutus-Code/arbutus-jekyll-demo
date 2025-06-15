@@ -5,6 +5,7 @@ backend:
   base_url: https://oauth.arbutuscode.ca
   auth_endpoint: auth
   site_domain: https://jekyll.arbutuscode.ca
+  auth_type: implicit
 
 media_folder: "assets/images/uploads" # Decap requires this
 public_folder: "/assets/images/uploads" # Decap requires this
