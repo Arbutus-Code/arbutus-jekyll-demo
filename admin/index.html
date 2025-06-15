@@ -17,10 +17,6 @@
         overflow-y: auto;
         z-index: 9999;
       }
-      #debug-panel h3 {
-        margin: 0 0 10px 0;
-        color: #ffffff;
-      }
       #debug-logs {
         margin: 0;
         padding: 0;
@@ -39,18 +35,22 @@
         color: #ff5555;
       }
     </style>
+    <!-- Inline configuration to avoid potential config.yml loading issues -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
   </head>
   <body>
     <!-- Debug panel to show initialization logs -->
     <div id="debug-panel">
-      <h3>Decap CMS Debug Panel</h3>
+      <h3>Netlify CMS Debug Panel</h3>
       <ul id="debug-logs"></ul>
     </div>
 
-    <!-- Load Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@3.3.2/dist/decap-cms.js"></script>
+    <!-- Load Netlify CMS -->
+    <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
     
-    <!-- Debug script to monitor initialization -->
+    <!-- Debug script with manual initialization -->
     <script>
       // Debug logging function
       function debugLog(message, isError = false) {
@@ -75,54 +75,85 @@
       // Initial log
       debugLog('Debug panel initialized');
       
+      // Register a manual event listener for auth messages
+      debugLog('Setting up manual message event listener...');
+      window.addEventListener('message', function(event) {
+        debugLog(`Received message event from ${event.origin}`);
+        try {
+          const data = JSON.stringify(event.data).substring(0, 100);
+          debugLog(`Message data: ${data}...`);
+          
+          // If this is an auth message, try to log more details
+          if (typeof event.data === 'string' && event.data.includes('authorization:')) {
+            debugLog('Auth message detected!');
+          }
+        } catch (e) {
+          debugLog(`Error processing message: ${e.message}`, true);
+        }
+      });
+      
       // Monitor CMS initialization
       window.addEventListener('load', function() {
-        debugLog('Window loaded, checking for CMS object...');
+        debugLog('Window loaded, starting manual initialization...');
         
-        // Check if CMS object exists
-        if (window.CMS) {
-          debugLog('CMS object found!');
+        try {
+          // Manual initialization with inline config
+          const config = {
+            backend: {
+              name: 'github',
+              repo: 'Arbutus-Code/arbutus-jekyll-demo',
+              branch: 'main',
+              base_url: 'https://oauth.arbutuscode.ca'
+            },
+            media_folder: 'assets/images/uploads',
+            collections: [
+              {
+                name: 'pages',
+                label: 'Pages',
+                folder: '_pages',
+                create: true,
+                fields: [
+                  { label: 'Title', name: 'title', widget: 'string' },
+                  { label: 'Body', name: 'body', widget: 'markdown' }
+                ]
+              }
+            ]
+          };
           
-          // Check for auth property
-          if (window.CMS.auth) {
-            debugLog('CMS.auth exists!');
-            debugLog(`CMS.auth properties: ${Object.keys(window.CMS.auth).join(', ')}`);
-          } else {
-            debugLog('CMS.auth is undefined!', true);
+          debugLog('Manual config created, initializing CMS...');
+          window.CMS.init({ config });
+          debugLog('CMS.init called');
+          
+          // Check if CMS object exists
+          if (window.CMS) {
+            debugLog('CMS object found!');
             
-            // Check backend configuration
-            try {
-              const backend = window.CMS.getBackend && window.CMS.getBackend();
-              if (backend) {
-                debugLog(`Backend found: ${backend.name || 'unnamed'}`);
-                if (backend.authClient) {
-                  debugLog('Backend has authClient property');
-                } else {
-                  debugLog('Backend missing authClient property', true);
-                }
+            // Check for auth property
+            setTimeout(() => {
+              if (window.CMS.auth) {
+                debugLog('CMS.auth exists!');
+                debugLog(`CMS.auth properties: ${Object.keys(window.CMS.auth).join(', ')}`);
               } else {
-                debugLog('No backend available from CMS.getBackend()', true);
+                debugLog('CMS.auth is undefined!', true);
               }
-            } catch (e) {
-              debugLog(`Error checking backend: ${e.message}`, true);
-            }
+              
+              // Check backend
+              try {
+                const backend = window.CMS.getBackend && window.CMS.getBackend();
+                if (backend) {
+                  debugLog(`Backend found: ${backend.name}`);
+                } else {
+                  debugLog('No backend available from CMS.getBackend()', true);
+                }
+              } catch (e) {
+                debugLog(`Error checking backend: ${e.message}`, true);
+              }
+            }, 1000);
+          } else {
+            debugLog('CMS object not found! CMS failed to initialize.', true);
           }
-          
-          // Register a manual event listener for auth messages
-          debugLog('Setting up manual message event listener...');
-          window.addEventListener('message', function(event) {
-            debugLog(`Received message event from ${event.origin}`);
-            try {
-              if (typeof event.data === 'string' && event.data.includes('authorization:')) {
-                debugLog(`Auth message detected: ${event.data.substring(0, 50)}...`);
-              }
-            } catch (e) {
-              debugLog(`Error processing message: ${e.message}`, true);
-            }
-          });
-          
-        } else {
-          debugLog('CMS object not found! Decap CMS failed to initialize.', true);
+        } catch (e) {
+          debugLog(`Error during initialization: ${e.message}`, true);
         }
       });
       
