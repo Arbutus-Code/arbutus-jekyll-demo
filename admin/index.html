@@ -38,9 +38,34 @@
       .debug-error {
         color: #ff5555;
       }
+      .login-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #24292e;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .login-button:hover {
+        background-color: #0366d6;
+      }
+      .center-content {
+        text-align: center;
+        margin-top: 100px;
+      }
     </style>
   </head>
   <body>
+    <!-- Manual login UI -->
+    <div class="center-content">
+      <h1>Decap CMS Admin</h1>
+      <p>The standard CMS initialization failed. Try the manual login button below:</p>
+      <button id="manual-login" class="login-button">Login with GitHub</button>
+    </div>
+
     <!-- Debug panel to show initialization logs -->
     <div id="debug-panel">
       <h3>Decap CMS Debug Panel</h3>
@@ -50,7 +75,7 @@
     <!-- Load Decap CMS -->
     <script src="https://unpkg.com/decap-cms@3.3.2/dist/decap-cms.js"></script>
     
-    <!-- Debug script to monitor initialization -->
+    <!-- Debug script with manual initialization -->
     <script>
       // Debug logging function
       function debugLog(message, isError = false) {
@@ -83,29 +108,48 @@
         if (window.CMS) {
           debugLog('CMS object found!');
           
-          // Check for auth property
-          if (window.CMS.auth) {
-            debugLog('CMS.auth exists!');
-            debugLog(`CMS.auth properties: ${Object.keys(window.CMS.auth).join(', ')}`);
-          } else {
-            debugLog('CMS.auth is undefined!', true);
+          try {
+            // Try to manually initialize the GitHub backend
+            debugLog('Attempting manual backend registration...');
             
-            // Check backend configuration
-            try {
-              const backend = window.CMS.getBackend && window.CMS.getBackend();
-              if (backend) {
-                debugLog(`Backend found: ${backend.name || 'unnamed'}`);
-                if (backend.authClient) {
-                  debugLog('Backend has authClient property');
-                } else {
-                  debugLog('Backend missing authClient property', true);
-                }
-              } else {
-                debugLog('No backend available from CMS.getBackend()', true);
-              }
-            } catch (e) {
-              debugLog(`Error checking backend: ${e.message}`, true);
+            // Define the config manually
+            const config = {
+              backend: {
+                name: 'github',
+                repo: 'Arbutus-Code/arbutus-jekyll-demo',
+                branch: 'main',
+                base_url: 'https://oauth.arbutuscode.ca',
+                auth_endpoint: 'auth',
+                site_domain: 'https://jekyll.arbutuscode.ca',
+                auth_type: 'implicit'
+              },
+              media_folder: 'assets/images/uploads',
+              collections: []
+            };
+            
+            debugLog('Manual config created');
+            
+            // Try to initialize with this config
+            if (typeof window.CMS.init === 'function') {
+              debugLog('Calling CMS.init with manual config...');
+              window.CMS.init({ config });
+              debugLog('CMS.init called successfully');
+            } else {
+              debugLog('CMS.init is not a function', true);
             }
+            
+            // Check if auth is now defined
+            setTimeout(() => {
+              if (window.CMS.auth) {
+                debugLog('Success! CMS.auth now exists after manual init');
+                debugLog(`CMS.auth properties: ${Object.keys(window.CMS.auth).join(', ')}`);
+              } else {
+                debugLog('CMS.auth still undefined after manual init', true);
+              }
+            }, 1000);
+            
+          } catch (e) {
+            debugLog(`Error during manual initialization: ${e.message}`, true);
           }
           
           // Register a manual event listener for auth messages
@@ -115,9 +159,43 @@
             try {
               if (typeof event.data === 'string' && event.data.includes('authorization:')) {
                 debugLog(`Auth message detected: ${event.data.substring(0, 50)}...`);
+                
+                // Try to manually process the auth message
+                const parts = event.data.split(':');
+                if (parts.length >= 4) {
+                  const provider = parts[1];
+                  const status = parts[2];
+                  const data = parts.slice(3).join(':');
+                  
+                  debugLog(`Provider: ${provider}, Status: ${status}`);
+                  debugLog(`Data: ${data.substring(0, 30)}...`);
+                  
+                  if (status === 'success' && window.CMS.auth && window.CMS.auth.completeAuth) {
+                    debugLog('Attempting to call CMS.auth.completeAuth...');
+                    try {
+                      const parsedData = JSON.parse(data);
+                      window.CMS.auth.completeAuth(parsedData);
+                      debugLog('CMS.auth.completeAuth called successfully');
+                    } catch (e) {
+                      debugLog(`Error calling completeAuth: ${e.message}`, true);
+                    }
+                  }
+                }
               }
             } catch (e) {
               debugLog(`Error processing message: ${e.message}`, true);
+            }
+          });
+          
+          // Set up manual login button
+          document.getElementById('manual-login').addEventListener('click', function() {
+            debugLog('Manual login button clicked');
+            try {
+              const authURL = `https://github.com/login/oauth/authorize?client_id=Iv1.9d7d662ea6f19d74&scope=repo&redirect_uri=${encodeURIComponent('https://oauth.arbutuscode.ca/auth')}`;
+              debugLog(`Redirecting to: ${authURL}`);
+              window.location.href = authURL;
+            } catch (e) {
+              debugLog(`Error during manual login: ${e.message}`, true);
             }
           });
           
