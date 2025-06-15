@@ -17,6 +17,10 @@
         overflow-y: auto;
         z-index: 9999;
       }
+      #debug-panel h3 {
+        margin: 0 0 10px 0;
+        color: #ffffff;
+      }
       #debug-logs {
         margin: 0;
         padding: 0;
@@ -44,7 +48,7 @@
     </div>
 
     <!-- Load Decap CMS -->
-    <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
+    <script src="https://unpkg.com/decap-cms@3.3.2/dist/decap-cms.js"></script>
     
     <!-- Debug script to monitor initialization -->
     <script>
@@ -85,6 +89,23 @@
             debugLog(`CMS.auth properties: ${Object.keys(window.CMS.auth).join(', ')}`);
           } else {
             debugLog('CMS.auth is undefined!', true);
+            
+            // Check backend configuration
+            try {
+              const backend = window.CMS.getBackend && window.CMS.getBackend();
+              if (backend) {
+                debugLog(`Backend found: ${backend.name || 'unnamed'}`);
+                if (backend.authClient) {
+                  debugLog('Backend has authClient property');
+                } else {
+                  debugLog('Backend missing authClient property', true);
+                }
+              } else {
+                debugLog('No backend available from CMS.getBackend()', true);
+              }
+            } catch (e) {
+              debugLog(`Error checking backend: ${e.message}`, true);
+            }
           }
           
           // Register a manual event listener for auth messages
@@ -92,14 +113,16 @@
           window.addEventListener('message', function(event) {
             debugLog(`Received message event from ${event.origin}`);
             try {
-              debugLog(`Message data: ${JSON.stringify(event.data).substring(0, 100)}...`);
+              if (typeof event.data === 'string' && event.data.includes('authorization:')) {
+                debugLog(`Auth message detected: ${event.data.substring(0, 50)}...`);
+              }
             } catch (e) {
               debugLog(`Error processing message: ${e.message}`, true);
             }
           });
           
         } else {
-          debugLog('CMS object not found! CMS failed to initialize.', true);
+          debugLog('CMS object not found! Decap CMS failed to initialize.', true);
         }
       });
       

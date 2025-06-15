@@ -3,7 +3,7 @@ backend:
   repo: Arbutus-Code/arbutus-jekyll-demo
   branch: main
   base_url: https://oauth.arbutuscode.ca
-  auth_endpoint: auth
+  auth_endpoint: /auth
   site_domain: https://jekyll.arbutuscode.ca
 
 # Media storage
