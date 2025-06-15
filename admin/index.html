@@ -7,6 +7,36 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@3.6.4/dist/decap-cms.js"></script>
+    <div id="nc-root"></div> <!-- Explicit root element for Decap CMS -->
+    <script>
+      // Manual Decap CMS Initialization
+      CMS.init({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'Arbutus-Code/arbutus-jekyll-demo', // Ensure this is correct
+            branch: 'main',                          // Ensure this is correct
+            base_url: 'https://oauth.arbutuscode.ca',
+            auth_endpoint: 'auth',
+            site_domain: 'https://jekyll.arbutuscode.ca', // Domain of Decap CMS itself
+            auth_type: 'implicit' // Explicitly set for postMessage flow
+          },
+          media_folder: "assets/images/uploads", // Decap requires this
+          public_folder: "/assets/images/uploads", // Decap requires this
+          collections: [
+            {
+              name: "test_posts",
+              label: "Test Posts",
+              folder: "_test_posts", // A temporary folder for testing
+              create: true,
+              fields: [
+                { label: "Title", name: "title", widget: "string" },
+                { label: "Body", name: "body", widget: "markdown" }
+              ]
+            }
+          ]
+        }
+      });
+    </script>
   </body>
 </html>
