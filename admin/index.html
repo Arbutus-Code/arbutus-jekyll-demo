@@ -1,20 +1,19 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
-    <title>Content Manager</title>
-    <!-- Step 1: Set CMS_MANUAL_INIT flag BEFORE Decap CMS script -->
-    <script>
-      window.CMS_MANUAL_INIT = true;
-    </script>
-    <!-- Step 2: Load Decap CMS library -->
-    <script src="https://unpkg.com/decap-cms@3.6.4/dist/decap-cms.js"></script>
-  </head>
-  <body>
-    <div id="nc-root" style="width: 100%; height: 100vh; background-color: #f0f0f0;"></div>
-    <!-- Step 3: Load your custom initialization script with defer -->
-    <script src="init-cms.js" defer></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arbutus CMS</title>
+</head>
+<body>
+  <!-- Decap CMS will mount here -->
+  <div id="nc-root"></div>
+  <!-- Include the Decap CMS script -->
+  <script src="https://unpkg.com/decap-cms@3.6.4/dist/decap-cms.js"></script>
+  <!-- Include your custom Decap CMS configuration script -->
+  <script src="config.js"></script>
+</body>
 </html>
