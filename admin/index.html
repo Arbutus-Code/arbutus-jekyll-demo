@@ -12,7 +12,33 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         if (window.CMS) {
-          CMS.init();
+          CMS.init({
+            config: {
+              backend: {
+                name: 'github',
+                repo: 'Arbutus-Code/arbutus-jekyll-demo',
+                branch: 'main',
+                base_url: 'https://oauth.arbutuscode.ca',
+                auth_endpoint: 'auth',
+                site_domain: 'https://jekyll.arbutuscode.ca',
+                auth_type: 'implicit'
+              },
+              media_folder: "assets/images/uploads",
+              public_folder: "/assets/images/uploads",
+              collections: [
+                {
+                  name: "test_collection",
+                  label: "Test Collection",
+                  folder: "_tests",
+                  create: true,
+                  fields: [
+                    { label: "Title", name: "title", widget: "string" },
+                    { label: "Body", name: "body", widget: "markdown" }
+                  ]
+                }
+              ]
+            }
+          });
         } else {
           console.error("Decap CMS object (CMS) not found. Initialization failed.");
           var rootDiv = document.getElementById('nc-root');
