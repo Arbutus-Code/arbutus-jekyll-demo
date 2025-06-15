@@ -5,57 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Content Manager</title>
+    <!-- Step 1: Set CMS_MANUAL_INIT flag BEFORE Decap CMS script -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+    <!-- Step 2: Load Decap CMS library -->
+    <script src="https://unpkg.com/decap-cms@3.6.4/dist/decap-cms.js"></script>
   </head>
   <body>
     <div id="nc-root" style="width: 100%; height: 100vh; background-color: #f0f0f0;"></div>
-    <script>
-      // This global flag enables manual initialization.
-      window.CMS_MANUAL_INIT = true;
-    </script>
-    <script src="https://unpkg.com/decap-cms@3.6.4/dist/decap-cms.js"></script>
-    <script>
-    // Initialize Decap CMS directly
-    var rootDiv = document.getElementById('nc-root');
-    if (rootDiv) {
-      rootDiv.innerHTML = ''; // Explicitly clear nc-root
-    }
-    if (window.CMS && window.CMS.initCMS) {
-      const { initCMS } = window.CMS;
-      initCMS({
-        config: {
-          backend: {
-            name: 'github',
-            repo: 'Arbutus-Code/arbutus-jekyll-demo',
-            branch: 'main',
-            base_url: 'https://oauth.arbutuscode.ca',
-            auth_endpoint: 'auth',
-            site_domain: 'https://jekyll.arbutuscode.ca',
-            auth_type: 'implicit'
-          },
-          load_config_file: false,
-          media_folder: "assets/images/uploads",
-          public_folder: "/assets/images/uploads",
-          collections: [
-            {
-              name: "test_collection",
-              label: "Test Collection",
-              folder: "_tests",
-              create: true,
-              fields: [
-                { label: "Title", name: "title", widget: "string" },
-                { label: "Body", name: "body", widget: "markdown" }
-              ]
-            }
-          ]
-        }
-      });
-    } else {
-      console.error("Decap CMS object (CMS) not found. Initialization failed.");
-      var rootDiv = document.getElementById('nc-root');
-      if (rootDiv) {
-        rootDiv.innerHTML = '<h1>Error: Decap CMS could not be loaded. Please check the console.</h1>';
-      }
-    }
-  </script>
+    <!-- Step 3: Load your custom initialization script AFTER Decap CMS library -->
+    <script src="init-cms.js"></script>
   </body>
 </html>
