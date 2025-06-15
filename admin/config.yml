@@ -2,8 +2,9 @@ backend:
   name: github
   repo: Arbutus-Code/arbutus-jekyll-demo
   branch: main
+  base_url: https://oauth.arbutuscode.ca
+  auth_endpoint: auth
   site_domain: https://jekyll.arbutuscode.ca
-  auth_type: implicit
 
 # Media storage
 media_folder: "assets/images/uploads"

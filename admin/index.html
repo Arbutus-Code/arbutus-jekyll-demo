@@ -3,8 +3,133 @@
   <head>
     <meta charset="utf-8">
     <title>Content Manager</title>
+    <style>
+      #debug-panel {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.8);
+        color: #00ff00;
+        font-family: monospace;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 9999;
+      }
+      #debug-panel h3 {
+        margin: 0 0 10px 0;
+        color: #ffffff;
+      }
+      #debug-logs {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      #debug-logs li {
+        margin-bottom: 5px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        padding-bottom: 5px;
+      }
+      .debug-timestamp {
+        color: #aaaaaa;
+        margin-right: 10px;
+      }
+      .debug-error {
+        color: #ff5555;
+      }
+    </style>
   </head>
   <body>
+    <!-- Debug panel to show initialization logs -->
+    <div id="debug-panel">
+      <h3>Decap CMS Debug Panel</h3>
+      <ul id="debug-logs"></ul>
+    </div>
+
+    <!-- Load Decap CMS -->
     <script src="https://unpkg.com/decap-cms@3.3.2/dist/decap-cms.js"></script>
+    
+    <!-- Debug script to monitor initialization -->
+    <script>
+      // Debug logging function
+      function debugLog(message, isError = false) {
+        const logsList = document.getElementById('debug-logs');
+        const logItem = document.createElement('li');
+        const timestamp = document.createElement('span');
+        timestamp.className = 'debug-timestamp';
+        timestamp.textContent = new Date().toISOString().substr(11, 8);
+        
+        logItem.appendChild(timestamp);
+        
+        const messageSpan = document.createElement('span');
+        messageSpan.className = isError ? 'debug-error' : '';
+        messageSpan.textContent = message;
+        logItem.appendChild(messageSpan);
+        
+        logsList.appendChild(logItem);
+        console.log(`[DEBUG] ${message}`);
+        if (isError) console.error(`[DEBUG ERROR] ${message}`);
+      }
+
+      // Initial log
+      debugLog('Debug panel initialized');
+      
+      // Monitor CMS initialization
+      window.addEventListener('load', function() {
+        debugLog('Window loaded, checking for CMS object...');
+        
+        // Check if CMS object exists
+        if (window.CMS) {
+          debugLog('CMS object found!');
+          
+          // Check for auth property
+          if (window.CMS.auth) {
+            debugLog('CMS.auth exists!');
+            debugLog(`CMS.auth properties: ${Object.keys(window.CMS.auth).join(', ')}`);
+          } else {
+            debugLog('CMS.auth is undefined!', true);
+            
+            // Check backend configuration
+            try {
+              const backend = window.CMS.getBackend && window.CMS.getBackend();
+              if (backend) {
+                debugLog(`Backend found: ${backend.name || 'unnamed'}`);
+                if (backend.authClient) {
+                  debugLog('Backend has authClient property');
+                } else {
+                  debugLog('Backend missing authClient property', true);
+                }
+              } else {
+                debugLog('No backend available from CMS.getBackend()', true);
+              }
+            } catch (e) {
+              debugLog(`Error checking backend: ${e.message}`, true);
+            }
+          }
+          
+          // Register a manual event listener for auth messages
+          debugLog('Setting up manual message event listener...');
+          window.addEventListener('message', function(event) {
+            debugLog(`Received message event from ${event.origin}`);
+            try {
+              if (typeof event.data === 'string' && event.data.includes('authorization:')) {
+                debugLog(`Auth message detected: ${event.data.substring(0, 50)}...`);
+              }
+            } catch (e) {
+              debugLog(`Error processing message: ${e.message}`, true);
+            }
+          });
+          
+        } else {
+          debugLog('CMS object not found! Decap CMS failed to initialize.', true);
+        }
+      });
+      
+      // Monitor for errors during initialization
+      window.addEventListener('error', function(event) {
+        debugLog(`Global error: ${event.message} at ${event.filename}:${event.lineno}`, true);
+      });
+    </script>
   </body>
 </html>
