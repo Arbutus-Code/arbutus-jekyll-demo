@@ -5,29 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Content Manager</title>
+    <script src="https://unpkg.com/decap-cms@3.6.4/dist/decap-cms.js"></script>
   </head>
   <body>
-    <div id="nc-root"></div> <!-- Explicit root element for Decap CMS -->
+    <div id="nc-root"></div>
     <script>
-      // Manual Decap CMS Initialization
-      CMS.init({
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.CMS) {
+          CMS.init({
         config: {
           backend: {
             name: 'github',
-            repo: 'Arbutus-Code/arbutus-jekyll-demo', // Ensure this is correct
-            branch: 'main',                          // Ensure this is correct
+            repo: 'Arbutus-Code/arbutus-jekyll-demo',
+            branch: 'main',
             base_url: 'https://oauth.arbutuscode.ca',
             auth_endpoint: 'auth',
-            site_domain: 'https://jekyll.arbutuscode.ca', // Domain of Decap CMS itself
-            auth_type: 'implicit' // Explicitly set for postMessage flow
+            site_domain: 'https://jekyll.arbutuscode.ca',
+            auth_type: 'implicit'
           },
-          media_folder: "assets/images/uploads", // Decap requires this
-          public_folder: "/assets/images/uploads", // Decap requires this
+          media_folder: "assets/images/uploads",
+          public_folder: "/assets/images/uploads",
           collections: [
             {
               name: "test_posts",
               label: "Test Posts",
-              folder: "_test_posts", // A temporary folder for testing
+              folder: "_test_posts",
               create: true,
               fields: [
                 { label: "Title", name: "title", widget: "string" },
@@ -35,6 +37,14 @@
               ]
             }
           ]
+        }
+      });
+        } else {
+          console.error("Decap CMS object (CMS) not found. Initialization failed.");
+          var rootDiv = document.getElementById('nc-root');
+          if (rootDiv) {
+            rootDiv.innerHTML = '<p style="padding: 20px; text-align: center; font-family: sans-serif;">Error: Decap CMS could not be loaded. Please check the console.</p>';
+          }
         }
       });
     </script>
