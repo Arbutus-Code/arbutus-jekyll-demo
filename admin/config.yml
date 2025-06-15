@@ -1,20 +1,616 @@
 backend:
   name: github
-  repo: Arbutus-Code/arbutus-jekyll-demo # Make sure this is your repo
-  branch: main # Make sure this is your branch
+  repo: Arbutus-Code/arbutus-jekyll-demo
+  branch: main
   base_url: https://oauth.arbutuscode.ca
-  auth_endpoint: 'auth' # Ensure this matches your OAuth app
+  auth_endpoint: auth
   site_domain: https://jekyll.arbutuscode.ca
-  auth_type: 'implicit' # Using implicit flow
+  auth_type: implicit
 
-media_folder: "assets/images/uploads" # Decap requires this
-public_folder: "/assets/images/uploads" # Decap requires this
+# Media storage
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
 
+# Editor settings
+locale: "en"
+show_preview_links: true
+
+# Site settings
+site_url: https://jekyll.arbutuscode.ca
+display_url: https://jekyll.arbutuscode.ca
+
+# Collections
 collections:
-  - name: "test_collection"
-    label: "Test Collection"
-    folder: "_tests" # A temporary folder for testing
+  # Pages collection for standard pages (e.g., about.md, donate.md)
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    folder: "/"
     create: true
+    slug: "{{slug}}"
+    filter: { field: "layout", value: "page" }
+    editor:
+      preview: true
     fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "page" }
       - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Permalink",
+          name: "permalink",
+          widget: "string",
+          pattern: ["^/[a-zA-Z0-9-_/]*/$", "Must start and end with /"],
+          required: false,
+        }
+      - label: "Page Sections"
+        name: "sections"
+        widget: "list"
+        types:
+          # Hero Section (docs: hero)
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "hero",
+                }
+              - { label: "Title", name: "title", widget: "string" }
+              - {
+                  label: "Subtitle",
+                  name: "subtitle",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                }
+              - {
+                  label: "Image Alt Text",
+                  name: "image_alt",
+                  widget: "string",
+                  required: false,
+                  hint: "Defaults to title if not provided",
+                }
+              - label: "Call to Action"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Button Text", name: "text", widget: "string" }
+                  - { label: "Button URL", name: "url", widget: "string" }
+
+          # Text Section (docs: text-section)
+          - label: "Text Section"
+            name: "text-section"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "text-section",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - { label: "Content", name: "text", widget: "markdown" }
+
+          # Split Section (docs: split)
+          - label: "Split Section"
+            name: "split"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "split",
+                }
+              - {
+                  label: "Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                }
+              - {
+                  label: "Image Alt Text",
+                  name: "image_alt",
+                  widget: "string",
+                  required: false,
+                  hint: "Defaults to heading if not provided",
+                }
+              - {
+                  label: "Image Position",
+                  name: "image_position",
+                  widget: "select",
+                  options: ["left", "right"],
+                  default: "left",
+                  required: false,
+                }
+              - {
+                  label: "Image Caption",
+                  name: "image_caption",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Content",
+                  name: "text",
+                  widget: "markdown",
+                  required: false,
+                }
+
+          # CTA Section (docs: cta)
+          - label: "CTA Section"
+            name: "cta"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "cta",
+                }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - {
+                  label: "Center Content",
+                  name: "center_content",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+              - label: "Image"
+                name: "image"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "URL", name: "url", widget: "image" }
+                  - {
+                      label: "Alt Text",
+                      name: "alt",
+                      widget: "string",
+                      required: false,
+                    }
+              - label: "Primary Button"
+                name: "primary_button"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+              - label: "Secondary Button"
+                name: "secondary_button"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+
+          # Featured Cards Section (docs: featured_cards)
+          - label: "Featured Cards Section"
+            name: "featured_cards"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "featured_cards",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Cards"
+                name: "cards"
+                widget: "list"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - {
+                      label: "Description",
+                      name: "description",
+                      widget: "text",
+                    }
+                  - { label: "URL", name: "url", widget: "string" }
+                  - {
+                      label: "CTA Text",
+                      name: "cta_text",
+                      widget: "string",
+                      default: "Learn More",
+                      required: false,
+                    }
+                  - {
+                      label: "Media Type",
+                      name: "media_type",
+                      widget: "select",
+                      options: ["image", "icon"],
+                      required: false,
+                    }
+                  - {
+                      label: "Image",
+                      name: "image",
+                      widget: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image Alt Text",
+                      name: "image_alt",
+                      widget: "string",
+                      required: false,
+                      hint: "Defaults to card title",
+                    }
+                  - {
+                      label: "Icon",
+                      name: "icon",
+                      widget: "string",
+                      required: false,
+                    }
+
+          # Team Members Section (docs: team_members)
+          - label: "Team Members Section"
+            name: "team_members"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "team_members",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Show Images",
+                  name: "show_images",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+              - label: "Members"
+                name: "members"
+                widget: "list"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - {
+                      label: "Title",
+                      name: "title",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Bio",
+                      name: "bio",
+                      widget: "text",
+                      required: false,
+                    }
+                  - {
+                      label: "Image",
+                      name: "image",
+                      widget: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image Alt Text",
+                      name: "image_alt",
+                      widget: "string",
+                      required: false,
+                    }
+
+          # Contact Form Section (docs: contact_form)
+          - label: "Contact Form Section"
+            name: "contact_form"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "contact_form",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Access Key",
+                  name: "access_key",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Submit Button Text",
+                  name: "submit_text",
+                  widget: "string",
+                  default: "Send Message",
+                  required: false,
+                }
+
+          # Contact Form with Socials Section (docs: contact_form_socials)
+          - label: "Contact Form with Socials"
+            name: "contact_form_socials"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "contact_form_socials",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Access Key",
+                  name: "access_key",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Submit Button Text",
+                  name: "submit_text",
+                  widget: "string",
+                  default: "Send Message",
+                  required: false,
+                }
+              - {
+                  label: "Show Titles",
+                  name: "show_titles",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+
+  # Blog posts collection
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - {
+          label: "Featured Image",
+          name: "image",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Image Alt Text",
+          name: "image_alt",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  # Site configuration files
+  - name: "config_files"
+    label: "Site Configuration"
+    label_singular: "Configuration File"
+    files:
+      # Site settings (_config.yml)
+      - label: "Site Settings"
+        name: "site_config"
+        file: "_config.yml"
+        editor:
+          preview: false
+        fields:
+          - { label: "Site Title", name: "title", widget: "string" }
+          - {
+              label: "Site Description",
+              name: "description",
+              widget: "string",
+              required: false,
+            }
+          - { label: "Logo", name: "logo", widget: "image", required: false }
+          - {
+              label: "Footer Logo",
+              name: "footer_logo",
+              widget: "image",
+              required: false,
+            }
+          - {
+              label: "Base URL",
+              name: "baseurl",
+              widget: "string",
+              required: false,
+              hint: "Usually empty or e.g., /my-repo if hosted in a subdirectory",
+            }
+          - {
+              label: "URL",
+              name: "url",
+              widget: "string",
+              hint: "Full site URL, e.g., https://example.com",
+            }
+          - label: "Favicons"
+            name: "favicons"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Relation", name: "rel", widget: "string" }
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Sizes",
+                  name: "sizes",
+                  widget: "string",
+                  required: false,
+                }
+              - { label: "Href", name: "href", widget: "string" }
+          - label: "Default Manifest Icons"
+            name: "default_manifest_icons"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Source", name: "src", widget: "string" }
+              - { label: "Sizes", name: "sizes", widget: "string" }
+              - { label: "Type", name: "type", widget: "string" }
+              - {
+                  label: "Relation",
+                  name: "rel",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Href",
+                  name: "href",
+                  widget: "string",
+                  required: false,
+                }
+          - label: "Contact Information"
+            name: "contact"
+            widget: "object"
+            required: false
+            fields:
+              - {
+                  label: "Address",
+                  name: "address",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Email",
+                  name: "email",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Phone",
+                  name: "phone",
+                  widget: "string",
+                  required: false,
+                }
+          - label: "Social Media Links"
+            name: "socials"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - {
+                  label: "Icon",
+                  name: "icon",
+                  widget: "string",
+                  hint: "FontAwesome icon name, e.g., twitter, facebook-f",
+                }
+          - label: "Web3Forms Configuration"
+            name: "web3forms"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Access Key", name: "access_key", widget: "string" }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                }
+          - {
+              label: "Theme",
+              name: "theme",
+              widget: "string",
+              default: "arbutus-theme",
+            }
+
+      # Navigation (_data/navigation.yml)
+      - label: "Navigation"
+        name: "navigation"
+        file: "_data/navigation.yml"
+        editor:
+          preview: false
+        fields:
+          - label: "Main Navigation Links"
+            name: "main_nav_links"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+          - label: "Footer Navigation Links"
+            name: "footer_nav_links"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
