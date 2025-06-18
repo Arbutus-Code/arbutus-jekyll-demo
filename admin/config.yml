@@ -484,6 +484,8 @@ collections:
   - name: "config_files"
     label: "Site Configuration"
     type: "files"
+    media_folder: "/" # Upload favicons and manifest icons to root
+    public_folder: "/" # Access favicons and manifest icons from root
     files:
       # Site settings (_config.yml)
       - label: "Site Settings"
@@ -542,27 +544,38 @@ collections:
                   required: false,
                 }
               - { label: "Href", name: "href", widget: "string" }
+          - label: "Web App Manifest"
+            name: "webmanifest"
+            widget: "object"
+            required: false
+            summary: "Web App Manifest Settings"
+            fields:
+              - { label: "Name", name: "name", widget: "string", required: false, hint: "Full name of the application (defaults to site title)" }
+              - { label: "Short Name", name: "short_name", widget: "string", required: false, hint: "Short name for app launchers (defaults to site title)" }
+              - { label: "Theme Color", name: "theme_color", widget: "color", required: false, default: "#ffffff", hint: "Primary theme color for the application" }
+              - { label: "Background Color", name: "background_color", widget: "color", required: false, default: "#ffffff", hint: "Background color for splash screens" }
+              - { label: "Display Mode", name: "display", widget: "select", required: false, default: "standalone", options: ["fullscreen", "standalone", "minimal-ui", "browser"], hint: "How the app should display on devices" }
+              - label: "Icons"
+                name: "icons"
+                widget: "list"
+                required: false
+                summary: "{{fields.sizes}} - {{fields.src}}"
+                hint: "Icons used in the web app manifest"
+                fields:
+                  - { label: "Source", name: "src", widget: "string", hint: "Path to the icon file (e.g., /android-chrome-192x192.png)" }
+                  - { label: "Sizes", name: "sizes", widget: "string", hint: "Icon dimensions (e.g., 192x192)" }
+                  - { label: "Type", name: "type", widget: "string", default: "image/png", hint: "MIME type of the image" }
+
           - label: "Default Manifest Icons"
             name: "default_manifest_icons"
             widget: "list"
-            identifier_field: "src"
             required: false
+            summary: "{{fields.sizes}} - {{fields.src}}"
+            hint: "These icons are used as fallback if no specific manifest icons are defined"
             fields:
-              - { label: "Source", name: "src", widget: "string" }
-              - { label: "Sizes", name: "sizes", widget: "string" }
-              - { label: "Type", name: "type", widget: "string" }
-              - {
-                  label: "Relation",
-                  name: "rel",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Href",
-                  name: "href",
-                  widget: "string",
-                  required: false,
-                }
+              - { label: "Source", name: "src", widget: "string", hint: "Path to the icon file (e.g., /android-chrome-192x192.png)" }
+              - { label: "Sizes", name: "sizes", widget: "string", hint: "Icon dimensions (e.g., 192x192)" }
+              - { label: "Type", name: "type", widget: "string", default: "image/png", hint: "MIME type of the image" }
           - label: "Contact Information"
             name: "contact"
             widget: "object"
