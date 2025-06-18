@@ -28,6 +28,8 @@ collections:
     create: true
     slug: "{{slug}}"
     filter: { field: "layout", value: "page" }
+    extension: "html"
+    format: "frontmatter"
     editor:
       preview: true
     fields:
@@ -464,6 +466,7 @@ collections:
       - label: "Site Settings"
         name: "site_config"
         file: "_config.yml"
+        format: "yaml"
         editor:
           preview: false
         fields:
@@ -598,6 +601,7 @@ collections:
       - label: "Navigation"
         name: "navigation"
         file: "_data/navigation.yml"
+        format: "yaml"
         editor:
           preview: false
         fields:
