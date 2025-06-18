@@ -1,7 +1,7 @@
 title: Arbutus Code
 description: Protecting Vancouver Island's iconic native trees
-logo: assets/images/arbutus-tree-black.svg
-footer_logo: assets/images/arbutus-tree-white.svg
+logo: assets/images/logos/arbutus-tree-black.svg
+footer_logo: assets/images/logos/arbutus-tree-white.svg
 baseurl: ""
 url: "https://jekyll.arbutuscode.ca"
 permalink: pretty

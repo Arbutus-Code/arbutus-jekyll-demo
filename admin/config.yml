@@ -4,7 +4,7 @@ backend:
   branch: main
   base_url: https://oauth.arbutuscode.ca
 
-logo_url: /assets/images/arbutus-tree-black.svg
+logo_url: /assets/images/logos/arbutus-tree-black.svg
 
 # Media storage
 media_folder: "assets/images"
@@ -103,10 +103,9 @@ collections:
                 required: false
                 hint: "Size of the favicon"
                 condition: { field: rel, value: manifest, negate: true }
-              - label: "File Path"
+              - label: "Image"
                 name: "href"
-                widget: "string"
-                hint: "Path to the file (e.g., /favicon.ico or /site.webmanifest)"
+                widget: "image"
                 required: true
           - label: "Contact Information"
             name: "contact"
@@ -169,6 +168,43 @@ collections:
               widget: "string",
               default: "arbutus-theme",
             }
+  # Brand colors configuration
+  - name: "brand_colors"
+    label: "Brand Colors"
+    type: "files"
+    files:
+      - label: "Brand Palette"
+        name: "brand_palette"
+        file: "_sass/_brand.scss"
+        editor:
+          preview: false
+        description: "Brand color palette configuration"
+        fields:
+          - label: "Primary Color"
+            name: "color_primary"
+            widget: "color"
+            required: true
+            hint: "Main brand color (Rust/bark color)"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+          - label: "Primary Dark Color"
+            name: "color_primary_dark"
+            widget: "color"
+            required: true
+            hint: "Darker version of primary color (Deep red/bark color)"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+          - label: "Primary Light Color"
+            name: "color_primary_light"
+            widget: "color"
+            required: true
+            hint: "Lighter version of primary color (Peach/light bark color)"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+          - label: "Accent Dark Color"
+            name: "color_accent_dark"
+            widget: "color"
+            required: true
+            hint: "Dark accent color (Dark blue/green forest color)"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+
   # Navigation configuration files
   - name: "navigation"
     label: "Navigation"
