@@ -24,8 +24,8 @@ collections:
   - name: "config_files"
     label: "Site Configuration"
     type: "files"
-    media_folder: "/" # Upload favicons and manifest icons to root
-    public_folder: "/" # Access favicons and manifest icons from root
+    media_folder: "/assets/images/logos"
+    public_folder: "/assets/images/logos"
     files:
       # Site settings (_config.yml)
       - label: "Site Settings"
@@ -71,42 +71,6 @@ collections:
               widget: "string",
               hint: "Full site URL, e.g., https://example.com",
             }
-          - label: "Favicons"
-            name: "favicons"
-            widget: "list"
-            identifier_field: "rel"
-            required: false
-            summary: "{{fields.rel}} {{fields.sizes || ''}} {{fields.href || ''}}"
-            fields:
-              - label: "Relation"
-                name: "rel"
-                widget: "select"
-                options: ["icon", "apple-touch-icon", "manifest"]
-                hint: "Type of favicon relationship"
-              - label: "Type"
-                name: "type"
-                widget: "select"
-                options:
-                  [
-                    "image/x-icon",
-                    "image/png",
-                    "image/svg+xml",
-                    "application/manifest+json",
-                  ]
-                required: false
-                hint: "MIME type of the favicon"
-                condition: { field: rel, value: manifest, negate: true }
-              - label: "Sizes"
-                name: "sizes"
-                widget: "select"
-                options: ["16x16", "32x32", "180x180", "192x192", "512x512"]
-                required: false
-                hint: "Size of the favicon"
-                condition: { field: rel, value: manifest, negate: true }
-              - label: "Image"
-                name: "href"
-                widget: "image"
-                required: true
           - label: "Contact Information"
             name: "contact"
             widget: "object"
@@ -175,34 +139,34 @@ collections:
     files:
       - label: "Brand Palette"
         name: "brand_palette"
-        file: "_sass/_brand.scss"
+        file: "_data/brand_colors.yml"
         editor:
           preview: false
-        description: "Brand color palette configuration"
+        description: "Brand color palette configuration (generates _sass/_brand.scss during build)"
         fields:
           - label: "Primary Color"
             name: "color_primary"
             widget: "color"
             required: true
-            hint: "Main brand color (Rust/bark color)"
+            hint: "Main brand color"
             pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
           - label: "Primary Dark Color"
             name: "color_primary_dark"
             widget: "color"
             required: true
-            hint: "Darker version of primary color (Deep red/bark color)"
+            hint: "Darker version of primary color"
             pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
           - label: "Primary Light Color"
             name: "color_primary_light"
             widget: "color"
             required: true
-            hint: "Lighter version of primary color (Peach/light bark color)"
+            hint: "Lighter version of primary color"
             pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
           - label: "Accent Dark Color"
             name: "color_accent_dark"
             widget: "color"
             required: true
-            hint: "Dark accent color (Dark blue/green forest color)"
+            hint: "Dark accent color"
             pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
 
   # Navigation configuration files
