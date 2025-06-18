@@ -4,6 +4,8 @@ backend:
   branch: main
   base_url: https://oauth.arbutuscode.ca
 
+logo_url: /assets/images/arbutus-tree-black.svg
+
 # Media storage
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
