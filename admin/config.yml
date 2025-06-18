@@ -552,18 +552,9 @@ collections:
                 condition: {field: rel, value: manifest, negate: true}
               - label: "File Path"
                 name: "href"
-                widget: "file"
-                media_folder: "/"
-                public_folder: "/"
-                hint: "Upload the manifest file (site.webmanifest)"
-                condition: {field: rel, value: manifest}
-              - label: "Favicon File"
-                name: "href"
-                widget: "image"
-                media_folder: "/"
-                public_folder: "/"
-                hint: "Upload or select the favicon file"
-                condition: {field: rel, value: manifest, negate: true}
+                widget: "string"
+                hint: "Path to the file (e.g., /favicon.ico or /site.webmanifest)"
+                required: true
           - label: "Contact Information"
             name: "contact"
             widget: "object"
