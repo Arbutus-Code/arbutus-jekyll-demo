@@ -529,7 +529,7 @@ collections:
             widget: "list"
             identifier_field: "rel"
             required: false
-            summary: "{{fields.rel}} - {{fields.sizes || 'no size'}} - {{fields.href}}"
+            summary: "{{fields.rel}} {{fields.sizes || ''}} {{fields.href || ''}}"
             fields:
               - label: "Relation"
                 name: "rel"
@@ -539,91 +539,31 @@ collections:
               - label: "Type"
                 name: "type"
                 widget: "select"
-                options: ["image/x-icon", "image/png", "image/svg+xml"]
+                options: ["image/x-icon", "image/png", "image/svg+xml", "application/manifest+json"]
                 required: false
                 hint: "MIME type of the favicon"
+                condition: {field: rel, value: manifest, negate: true}
               - label: "Sizes"
                 name: "sizes"
                 widget: "select"
                 options: ["16x16", "32x32", "180x180", "192x192", "512x512"]
                 required: false
                 hint: "Size of the favicon"
+                condition: {field: rel, value: manifest, negate: true}
+              - label: "File"
+                name: "href"
+                widget: "file"
+                media_folder: "/"
+                public_folder: "/"
+                hint: "Upload the manifest file (site.webmanifest)"
+                condition: {field: rel, value: manifest}
               - label: "Favicon File"
                 name: "href"
                 widget: "image"
+                media_folder: "/"
+                public_folder: "/"
                 hint: "Upload or select the favicon file"
-          - label: "Web App Manifest"
-            name: "webmanifest"
-            widget: "object"
-            required: false
-            summary: "Web App Manifest Settings"
-            fields:
-              - {
-                  label: "Name",
-                  name: "name",
-                  widget: "string",
-                  required: false,
-                  hint: "Full name of the application (defaults to site title)",
-                }
-              - {
-                  label: "Short Name",
-                  name: "short_name",
-                  widget: "string",
-                  required: false,
-                  hint: "Short name for app launchers (defaults to site title)",
-                }
-              - {
-                  label: "Theme Color",
-                  name: "theme_color",
-                  widget: "color",
-                  required: false,
-                  default: "#ffffff",
-                  hint: "Primary theme color for the application",
-                }
-              - {
-                  label: "Background Color",
-                  name: "background_color",
-                  widget: "color",
-                  required: false,
-                  default: "#ffffff",
-                  hint: "Background color for splash screens",
-                }
-              - {
-                  label: "Display Mode",
-                  name: "display",
-                  widget: "select",
-                  required: false,
-                  default: "standalone",
-                  options:
-                    ["fullscreen", "standalone", "minimal-ui", "browser"],
-                  hint: "How the app should display on devices",
-                }
-              - label: "Icons"
-                name: "icons"
-                widget: "list"
-                required: false
-                summary: "{{fields.sizes}} - {{fields.src}}"
-                hint: "Icons used in the web app manifest"
-                fields:
-                  - {
-                      label: "Source",
-                      name: "src",
-                      widget: "string",
-                      hint: "Path to the icon file (e.g., /android-chrome-192x192.png)",
-                    }
-                  - {
-                      label: "Sizes",
-                      name: "sizes",
-                      widget: "string",
-                      hint: "Icon dimensions (e.g., 192x192)",
-                    }
-                  - {
-                      label: "Type",
-                      name: "type",
-                      widget: "string",
-                      default: "image/png",
-                      hint: "MIME type of the image",
-                    }
+                condition: {field: rel, value: manifest, negate: true}
           - label: "Contact Information"
             name: "contact"
             widget: "object"

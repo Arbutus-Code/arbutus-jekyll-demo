@@ -25,23 +25,6 @@ favicons:
     href: /apple-touch-icon.png
   - rel: manifest
     href: /site.webmanifest
-
-# Default manifest icons (used if not set in CMS)
-default_manifest_icons:
-  - src: "/android-chrome-192x192.png"
-    sizes: "192x192"
-    type: "image/png"
-  - src: "/android-chrome-512x512.png"
-    sizes: "512x512"
-    type: "image/png"
-  - rel: icon
-    type: image/png
-    sizes: 512x512
-    href: /android-chrome-512x512.png
-  - rel: icon
-    type: image/png
-    sizes: 192x192
-    href: /android-chrome-192x192.png
 contact:
   address: "456 Arbutus Way, BC, Canada"
   email: "info@arbutuscode.ca"
