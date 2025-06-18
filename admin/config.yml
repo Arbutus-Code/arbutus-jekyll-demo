@@ -602,7 +602,6 @@ collections:
       # Navigation (_data/navigation.yml)
       - label: "Navigation"
         name: "navigation"
-        type: "files"
         file: "_data/navigation.yml"
         format: "yaml"
         editor:
