@@ -60,7 +60,7 @@ sections:
         bio: "Michael coordinates habitat protection initiatives and community education programs across Vancouver Island."
       - name: "Sarah Johnson"
         title: "Community Outreach"
-        image: "/assets/images/people/avatar-default.webp"
+        image: "/assets/images/avatar-default.webp"
         bio: "Sarah develops educational materials and organizes volunteer activities for Arbutus conservation projects."
   - type: social_links
     heading: "Follow Us"

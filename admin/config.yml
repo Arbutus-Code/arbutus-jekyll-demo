@@ -262,16 +262,16 @@ collections:
                       required: false,
                     }
 
-          # Team Members Section (docs: team_members)
+          # Team Members Section
           - label: "Team Members Section"
-            name: "team_members"
+            name: "team"
             widget: "object"
             fields:
               - {
                   label: "Type",
                   name: "type",
                   widget: "hidden",
-                  default: "team_members",
+                  default: "team",
                 }
               - {
                   label: "Heading",
@@ -315,6 +315,31 @@ collections:
                       widget: "string",
                       required: false,
                     }
+
+          # Social Links Section
+          - label: "Social Links Section"
+            name: "social_links"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "social_links",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Socials",
+                  name: "socials",
+                  widget: "string",
+                  default: "site.socials",
+                  hint: "Use site.socials to reference global social links",
+                }
 
           # Contact Form Section (docs: contact_form)
           - label: "Contact Form Section"
