@@ -483,16 +483,17 @@ collections:
   # Site configuration files
   - name: "config_files"
     label: "Site Configuration"
-    delete: false
     type: "files"
     files:
       # Site settings (_config.yml)
       - label: "Site Settings"
         name: "site_config"
         file: "_config.yml"
-        format: "yaml"
+        extension: "yml"
+        format: "yml"
         editor:
           preview: false
+        description: "Site-wide settings and configuration"
         fields:
           - { label: "Site Title", name: "title", widget: "string" }
           - {
@@ -628,9 +629,11 @@ collections:
       - label: "Navigation"
         name: "navigation"
         file: "_data/navigation.yml"
-        format: "yaml"
+        extension: "yml"
+        format: "yml"
         editor:
           preview: false
+        description: "Site navigation menu configuration"
         fields:
           - label: "Main Navigation Links"
             name: "main_nav_links"
