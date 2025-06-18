@@ -28,8 +28,6 @@ collections:
     create: true
     slug: "{{slug}}"
     filter: { field: "layout", value: "page" }
-    extension: "html"
-    format: "frontmatter"
     editor:
       preview: true
     fields:
