@@ -3,7 +3,7 @@ layout: page
 title: Conservation Projects
 sections:
   - type: split
-    image: /assets/images/arbutus/trees-422203_1280.jpg
+    image: /assets/images/trees-422203_1280.jpg
     image_alt: "Arbutus trees on rocky coastal bluff"
     image_position: right
     heading: "Habitat Mapping & Monitoring"
@@ -14,7 +14,7 @@ sections:
       
       The resulting maps are shared with conservation partners, researchers, and land managers to inform protection strategies and policy decisions.
   - type: split
-    image: /assets/images/arbutus/arbutus-4274508_1280.jpg
+    image: /assets/images/arbutus-4274508_1280.jpg
     image_alt: "Arbutus seedlings in nursery containers"
     image_position: left
     heading: "Arbutus Regeneration Program"
@@ -29,7 +29,7 @@ sections:
       
       Working with landowners, parks, and First Nations partners, we've established several Arbutus regeneration sites across Vancouver Island.
   - type: split
-    image: /assets/images/arbutus/jasper-garratt-81gqncU8uCo-unsplash.jpg
+    image: /assets/images/jasper-garratt-81gqncU8uCo-unsplash.jpg
     image_alt: "Community workshop on Arbutus trees"
     image_position: right
     heading: "Community Science & Education"

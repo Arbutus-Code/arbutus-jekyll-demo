@@ -3,12 +3,11 @@ layout: page
 title: About Arbutus Trees
 sections:
   - type: split
-    image: /assets/images/projects/placeholder.svg
     text: |
       The Arbutus tree (Arbutus menziesii), also known as the Pacific Madrone, is the only native broadleaf evergreen tree in Canada. Found along the southwestern coast of British Columbia, particularly on Vancouver Island and the Gulf Islands, these magnificent trees are a distinctive feature of our coastal landscape.
 
       With their smooth, cinnamon-red bark that peels away to reveal a green underbark, twisted branches, and glossy evergreen leaves, Arbutus trees are instantly recognizable and beloved symbols of our region's unique ecosystem.
-    image: /assets/images/arbutus/trees-422203_1280.jpg
+    image: /assets/images/trees-422203_1280.jpg
     image_alt: Arbutus tree with distinctive red bark
     image_position: right
     image_caption: Arbutus tree with distinctive red bark
@@ -36,7 +35,7 @@ sections:
       * **Size**: Can grow up to 30 meters tall in ideal conditions, though typically reaches 10-15 meters on Vancouver Island.
   
   - type: split
-    image: /assets/images/arbutus/arbutus-1198592_1920.jpg
+    image: /assets/images/arbutus-1198592_1920.jpg
     image_alt: "Arbutus tree flowers in bloom"
     image_position: left
     heading: "Cultural Significance"
@@ -53,11 +52,11 @@ sections:
     members:
       - name: "Dr. Emily Chen"
         title: "Lead Botanist"
-        image: "/assets/images/people/avatar-default.webp"
+        image: "/assets/images/avatar-default.webp"
         bio: "Dr. Chen specializes in Pacific Northwest native tree species and leads our Arbutus monitoring program."
       - name: "Michael Williams"
         title: "Conservation Director"
-        image: "/assets/images/people/avatar-default.webp"
+        image: "/assets/images/avatar-default.webp"
         bio: "Michael coordinates habitat protection initiatives and community education programs across Vancouver Island."
       - name: "Sarah Johnson"
         title: "Community Outreach"
@@ -71,7 +70,7 @@ sections:
     description: "Help us protect Vancouver Island's iconic Arbutus trees for future generations. Together, we can make a difference."
     center_content: true
     image:
-      url: "/assets/images/arbutus/tree-5970576_1920.jpg"
+      url: "/assets/images/tree-5970576_1920.jpg"
       alt: "Volunteers planting Arbutus seedlings"
     primary_button:
       text: "Volunteer Today"
@@ -86,19 +85,19 @@ sections:
         description: "Explore our initiatives to protect and restore Arbutus habitats across Vancouver Island."
         url: "/projects/"
         media_type: image
-        image: "/assets/images/arbutus/tree-5970576_1920.jpg"
+        image: "/assets/images/tree-5970576_1920.jpg"
         image_alt: "Arbutus grove on rocky shoreline"
       - title: "Get Involved"
         description: "Join our community of volunteers and supporters dedicated to Arbutus conservation."
         url: "/get-involved/"
         media_type: image
-        image: "/assets/images/arbutus/jasper-garratt-81gqncU8uCo-unsplash.jpg"
+        image: "/assets/images/jasper-garratt-81gqncU8uCo-unsplash.jpg"
         image_alt: "Community workshop on Arbutus trees"
       - title: "Support Our Work"
         description: "Your donations help fund our conservation efforts and educational programs."
         url: "/donate/"
         media_type: image
-        image: "/assets/images/arbutus/arbutus-4274508_1280.jpg"
+        image: "/assets/images/arbutus-4274508_1280.jpg"
         image_alt: "Arbutus seedlings in nursery containers"
   - type: text-section
     heading: "Disclaimer"

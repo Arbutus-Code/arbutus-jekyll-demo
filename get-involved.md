@@ -3,7 +3,7 @@ layout: page
 title: Get Involved
 sections:
   - type: split
-    image: /assets/images/arbutus/seval-torun-mILclb9MtgU-unsplash.jpg
+    image: /assets/images/seval-torun-mILclb9MtgU-unsplash.jpg
     image_alt: "Volunteers planting Arbutus seedlings"
     heading: "Join Our Arbutus Conservation Community"
     text: |

@@ -32,7 +32,7 @@ sections:
         media_type: icon
         icon: academic-cap
   - type: split
-    image: /assets/images/arbutus/trees-422203_1280.jpg
+    image: /assets/images/trees-422203_1280.jpg
     image_alt: "Arbutus tree with distinctive red bark"
     image_position: right
     heading: "The Sentinel of the Salish Sea"
@@ -45,21 +45,21 @@ sections:
     cards:
       - title: "Seasonal Changes"
         description: "Witness the dramatic transformations of the Arbutus through Vancouver Island's seasons."
-        image: /assets/images/arbutus/arbutus-1198592_1920.jpg
+        image: /assets/images/arbutus-1198592_1920.jpg
         image_alt: "Arbutus tree in autumn"
         url: /projects/seasons
         cta_text: "View Gallery"
         media_type: image
       - title: "Habitat Mapping"
         description: "Discover where these magnificent trees thrive across Vancouver Island's diverse landscapes."
-        image: /assets/images/arbutus/tree-5970576_1920.jpg
+        image: /assets/images/tree-5970576_1920.jpg
         image_alt: "Arbutus grove on rocky shoreline"
         url: /projects/mapping
         cta_text: "Explore Map"
         media_type: image
       - title: "Photography Tips"
         description: "Learn how to capture the unique beauty of Arbutus trees in your photography."
-        image: /assets/images/arbutus/annette-witteman-vJ2fK6r-MFU-unsplash.jpg
+        image: /assets/images/annette-witteman-vJ2fK6r-MFU-unsplash.jpg
         image_alt: "Close-up of Arbutus bark"
         url: /projects/photography
         cta_text: "Get Tips"

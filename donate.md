@@ -3,7 +3,7 @@ layout: page
 title: Support Arbutus Conservation
 sections:
   - type: split
-    image: /assets/images/arbutus/trees-422203_1280.jpg
+    image: /assets/images/trees-422203_1280.jpg
     image_alt: "Mature Arbutus tree on coastal bluff"
     heading: "Your Support Makes a Difference"
     text: |

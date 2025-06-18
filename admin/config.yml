@@ -7,7 +7,8 @@ backend:
 logo_url: /assets/images/arbutus-tree-black.svg
 
 # Media storage
-media_folder: "assets/images/uploads"
+media_folder: "assets/images"
+public_folder: "/assets/images"
 
 # Editor settings
 locale: "en"
