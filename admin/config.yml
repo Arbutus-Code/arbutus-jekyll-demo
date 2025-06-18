@@ -550,7 +550,7 @@ collections:
                 required: false
                 hint: "Size of the favicon"
                 condition: {field: rel, value: manifest, negate: true}
-              - label: "File"
+              - label: "File Path"
                 name: "href"
                 widget: "file"
                 media_folder: "/"
