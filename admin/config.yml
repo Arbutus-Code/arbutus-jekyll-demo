@@ -459,6 +459,7 @@ collections:
   - name: "config_files"
     label: "Site Configuration"
     label_singular: "Configuration File"
+    type: "files"
     files:
       # Site settings (_config.yml)
       - label: "Site Settings"
@@ -601,6 +602,7 @@ collections:
       # Navigation (_data/navigation.yml)
       - label: "Navigation"
         name: "navigation"
+        type: "files"
         file: "_data/navigation.yml"
         format: "yaml"
         editor:
