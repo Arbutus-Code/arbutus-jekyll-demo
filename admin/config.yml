@@ -132,6 +132,79 @@ collections:
               widget: "string",
               default: "arbutus-theme",
             }
+  # Favicon configuration
+  - name: "favicons"
+    label: "Favicons"
+    type: "files"
+    media_folder: "/assets/images/favicons"
+    public_folder: "/assets/images/favicons"
+    files:
+      - label: "Favicon Settings"
+        name: "favicon_settings"
+        file: "_data/favicon_settings.yml"
+        editor:
+          preview: false
+        description: "Configure your site favicons and web app manifest"
+        fields:
+          - label: "Favicon ICO"
+            name: "favicon_ico"
+            widget: "image"
+            required: true
+            hint: "Upload a favicon.ico file (required)"
+            media_library:
+              config:
+                multiple: false
+          - label: "Favicon PNG"
+            name: "favicon_png"
+            widget: "image"
+            required: false
+            hint: "Upload a high-quality PNG image (at least 512x512px recommended)"
+            media_library:
+              config:
+                multiple: false
+          - label: "Favicon SVG"
+            name: "favicon_svg"
+            widget: "image"
+            required: false
+            hint: "Upload an SVG favicon (optional)"
+            media_library:
+              config:
+                multiple: false
+          - label: "Web App Manifest"
+            name: "manifest"
+            widget: "object"
+            summary: "Web App Manifest Settings"
+            fields:
+              - label: "App Name"
+                name: "name"
+                widget: "string"
+                required: true
+                hint: "Full name of your web application"
+              - label: "Short Name"
+                name: "short_name"
+                widget: "string"
+                required: true
+                hint: "Short name for app icons"
+              - label: "Theme Color"
+                name: "theme_color"
+                widget: "color"
+                required: true
+                default: "#ffffff"
+                hint: "Theme color for browser UI"
+              - label: "Background Color"
+                name: "background_color"
+                widget: "color"
+                required: true
+                default: "#ffffff"
+                hint: "Background color for splash screen"
+              - label: "Display Mode"
+                name: "display"
+                widget: "select"
+                options: ["standalone", "fullscreen", "minimal-ui", "browser"]
+                default: "standalone"
+                required: true
+                hint: "How the app should be displayed"
+
   # Brand colors configuration
   - name: "brand_colors"
     label: "Brand Colors"

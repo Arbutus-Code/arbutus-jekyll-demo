@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% if page.title %}
+        {{ page.title }} |
+      {% endif %}
+      {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    {% if site.data.favicons %}
+      {% for favicon in site.data.favicons %}
+        <link
+          rel="{{ favicon.rel }}"{% if favicon.type %} type="{{ favicon.type }}"{% endif %}{% if favicon.sizes %} sizes="{{ favicon.sizes }}"{% endif %}
+          href="{{ favicon.href | relative_url }}">
+      {% endfor %}
+    {% endif %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    {% seo %}
+  </head>
+  <body>
+    
+    {% include header.html show_title=false %}
+    {{ content }}
+
+    {% include footer.html %}
+    <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+    {% if site.web3forms %}
+    <script src="{{ '/assets/js/web3forms-hcaptcha.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/web3forms.js' | relative_url }}"></script>
+    {% endif %}
+  </body>
+</html>

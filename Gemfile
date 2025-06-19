@@ -17,4 +17,5 @@ gem "arbutus-theme", github: "Arbutus-Code/arbutus-jekyll-theme"
 group :jekyll_plugins do
   gem "jekyll-feed"
   gem "jekyll-seo-tag"
+  gem "mini_magick"  # For favicon image resizing
 end

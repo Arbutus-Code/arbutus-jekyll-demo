@@ -1,0 +1,21 @@
+# Favicon settings
+# This file is used by the favicon generator plugin to create favicons and site.webmanifest
+
+# Upload your favicon files in the admin panel under "Favicons" > "Favicon Settings"
+
+# Favicon ICO (required)
+favicon_ico: "/assets/images/favicons/favicon.ico"
+
+# Favicon PNG (optional but recommended)
+favicon_png: "/assets/images/favicons/favicon.png"
+
+# Favicon SVG (optional)
+favicon_svg: "/assets/images/favicons/favicon.svg"
+
+# Web App Manifest settings
+manifest:
+  name: "Arbutus Code"
+  short_name: "Arbutus"
+  theme_color: "#BF5841"
+  background_color: "#ffffff"
+  display: "standalone"

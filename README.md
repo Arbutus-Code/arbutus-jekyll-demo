@@ -8,7 +8,7 @@ This is a demo site for the Arbutus Code Jekyll theme.
 
 The site's brand colors can be edited through the admin panel and are automatically applied during the build process:
 
-1. **Editing Colors**: 
+1. **Editing Colors**:
    - Log in to the admin panel
    - Navigate to "Brand Colors" > "Brand Palette"
    - Use the color pickers to adjust the brand colors
@@ -26,18 +26,35 @@ The site's brand colors can be edited through the admin panel and are automatica
 
 ### Favicon and Web Manifest Management
 
-Favicons and the site's web manifest can be managed through the admin panel:
+Favicons and the site's web manifest can be easily managed through the admin panel:
 
-1. **Editing Favicons**:
-   - Navigate to "Site Configuration" > "Site Settings"
-   - Scroll to the "Favicons" section
-   - Add or edit favicon entries with appropriate rel, type, sizes, and file path
-   - For regular favicons, set rel to "icon" or "apple-touch-icon"
-   - For the web manifest, set rel to "manifest"
+1. **Uploading Favicon Files**:
+   - Navigate to "Favicons" > "Favicon Settings"
+   - Upload your favicon files:
+     - **Favicon ICO**: Required, will be copied to `/favicon.ico`
+     - **Favicon PNG**: Optional but recommended, will be used to generate various sizes
+     - **Favicon SVG**: Optional, will be copied to `/favicon.svg`
 
-2. **File Paths**:
-   - All favicon and manifest files are stored in the site root for proper browser access
-   - Use paths like `/favicon.ico` or `/site.webmanifest`
+2. **Configuring Web App Manifest**:
+   - In the same section, fill out the Web App Manifest fields:
+     - App Name: Full name of your web application
+     - Short Name: Short name for app icons
+     - Theme Color: Color for browser UI elements
+     - Background Color: Color for splash screen
+     - Display Mode: How the app should be displayed
+
+3. **How It Works**:
+   - Files are uploaded to `/assets/images/favicons/` for organization
+   - During build, the plugin automatically:
+     - Copies favicon files to the site root
+     - Generates different sizes from your PNG (16x16, 32x32, 192x192, 512x512)
+     - Creates `site.webmanifest` with your settings
+     - Generates `_data/favicons.yml` for use in templates
+
+4. **Important Notes**:
+   - All favicon files will be available at the site root (e.g., `/favicon.ico`, `/favicon.svg`)
+   - You only need to upload source files - the system handles all the different sizes and formats
+   - Changes take effect after the site rebuilds
 
 ### Navigation Management
 
