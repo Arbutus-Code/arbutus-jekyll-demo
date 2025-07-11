@@ -10,7 +10,7 @@ main_nav_links:
   - name: News & Updates
     link: /updates/
   - name: Test
-    link: test-page
+    link: /test-page/
 footer_nav_links:
   - name: About
     link: /about/
