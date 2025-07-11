@@ -9,7 +9,8 @@ main_nav_links:
     link: /donate/
   - name: News & Updates
     link: /updates/
-
+  - name: Test
+    link: /test-page/
 footer_nav_links:
   - name: About
     link: /about/
