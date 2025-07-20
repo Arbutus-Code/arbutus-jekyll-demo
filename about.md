@@ -14,7 +14,7 @@ sections:
       With their smooth, cinnamon-red bark that peels away to reveal a green underbark, twisted branches, and glossy evergreen leaves, Arbutus trees are instantly recognizable and beloved symbols of our region's unique ecosystem.
     image: /assets/images/trees-422203_1280.jpg
     image_alt: Arbutus tree with distinctive red bark
-    image_position: null
+    image_position: left
     image_caption: Arbutus tree with distinctive red bark
   - type: text-section
     heading: Our Mission
