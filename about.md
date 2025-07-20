@@ -46,7 +46,7 @@ sections:
       
       Today, the Arbutus continues to be a powerful symbol of resilience, adaptation, and the unique character of our coastal ecosystems.
   
-  - type: team
+  - type: team_members
     heading: "Our Conservation Team"
     show_images: true
     members:
@@ -64,7 +64,16 @@ sections:
         bio: "Sarah develops educational materials and organizes volunteer activities for Arbutus conservation projects."
   - type: social_links
     heading: "Follow Us"
-    socials: site.socials
+    socials:
+      - name: "Twitter"
+        url: "https://twitter.com/arbutusconserve"
+        icon: "twitter"
+      - name: "Facebook"
+        url: "https://facebook.com/arbutusconservation"
+        icon: "facebook"
+      - name: "Instagram"
+        url: "https://instagram.com/arbutusconserve"
+        icon: "instagram"
   - type: cta
     title: "Join Our Conservation Efforts"
     description: "Help us protect Vancouver Island's iconic Arbutus trees for future generations. Together, we can make a difference."

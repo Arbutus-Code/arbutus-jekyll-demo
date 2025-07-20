@@ -2,17 +2,49 @@
 
 This repository contains a complete demo site for the Arbutus Jekyll Theme. It showcases all available components, layouts, and features of the theme in a fictional conservation organization website.
 
+## Features
+
+- **12 Flexible Components**: Hero, text sections, split layouts, featured cards, CTAs, contact forms, team members, and more
+- **Responsive Design**: Mobile-first approach with modern CSS Grid and Flexbox
+- **Content Management**: Integrated with Decap CMS (formerly Netlify CMS) for easy content editing
+- **SEO Optimized**: Built-in SEO tags, structured data, and performance optimization
+- **Ruby 3.4+ Compatible**: Updated for the latest Ruby versions
+- **Automated Deployment**: GitHub Actions workflow for seamless deployment
+
 ## Getting Started
 
-To use this demo as a starting point for your own site, follow these steps:
+### Prerequisites
+
+- **Ruby 3.0+** (Ruby 3.4+ recommended)
+- **Bundler** (`gem install bundler`)
+- **Git** for version control
 
 ### 1. Basic Setup
 
-1. Clone or download this repository
-2. Update the `_config.yml` file with your site information
-3. Replace the favicon and logo files with your own
-4. Customize the content in the Markdown files
-5. Run `bundle install` and `bundle exec jekyll serve` to preview your site
+1. **Clone this repository**:
+
+   ```bash
+   git clone https://github.com/your-username/your-site-name.git
+   cd your-site-name
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   bundle install
+   ```
+
+3. **Start development server**:
+
+   ```bash
+   bundle exec jekyll serve
+   ```
+
+   Your site will be available at `http://localhost:4000`
+
+4. **Update site configuration** (see Configuration section below)
+5. **Customize content** in the Markdown files
+6. **Replace branding assets** (logos, favicons, etc.)
 
 ### 2. Configuration (`_config.yml`)
 
@@ -231,15 +263,89 @@ Post content goes here in Markdown format.
 
 ## Deployment
 
-The demo includes a GitHub Actions workflow for deployment. To use it:
+### Automated Deployment with GitHub Actions
 
-1. Update the `deploy.yml` file in `.github/workflows/`
-2. Set the appropriate secrets in your GitHub repository:
-   - `HOST`: Your server hostname
-   - `USERNAME`: SSH username
-   - `SSH_KEY`: SSH private key
-   - `PORT`: SSH port (usually 22)
-3. Update the target path in the workflow file
+The demo includes a complete GitHub Actions workflow that:
+- Builds the Jekyll site with Ruby 3.4
+- Installs all required dependencies (including ImageMagick for image processing)
+- Uses the latest Arbutus theme from GitHub
+- Deploys via rsync to your server
+
+#### Setup Instructions
+
+1. **Configure Repository Secrets** in your GitHub repository settings:
+   - `HOST`: Your server hostname or IP address
+   - `USERNAME`: SSH username for your server
+   - `SSH_KEY`: Your SSH private key (entire contents of your `.pem` or private key file)
+   - `PORT`: SSH port (usually 22, but may be different for security)
+   - `TARGET`: Target directory on your server (e.g., `/var/www/html` or `/home/user/public_html`)
+
+2. **Update site URL** in `_config.yml`:
+
+   ```yaml
+   url: "https://yourdomain.com"  # Your actual domain
+   baseurl: ""  # Leave empty for root domain, or "/subdirectory" for subdirectory
+   ```
+
+3. **Push to main branch** - deployment happens automatically on every push to `main`
+
+#### Manual Deployment
+
+For manual deployment or other hosting providers:
+
+```bash
+# Build the site
+bundle exec jekyll build
+
+# Upload the _site directory to your web server
+rsync -avz --delete _site/ user@server:/path/to/web/directory/
+```
+
+### Hosting Recommendations
+
+- **VPS/Dedicated Server**: Full control, works with the included GitHub Actions workflow
+- **GitHub Pages**: Free hosting, but limited to safe plugins (theme features may be restricted)
+- **Netlify**: Excellent for Jekyll sites, supports all theme features
+- **Vercel**: Good alternative with similar features to Netlify
+
+## Content Management with Decap CMS
+
+### Admin Panel Access
+
+Once deployed, access your admin panel at: `https://yourdomain.com/admin/`
+
+### Setup Requirements
+
+1. **Configure OAuth** for GitHub authentication:
+   - Set up a GitHub OAuth App in your GitHub settings
+   - Update `admin/config.yml` with your OAuth credentials
+   - For local development, set `site_domain: "http://localhost:4000"`
+   - For production, set `site_domain: "https://yourdomain.com"`
+
+2. **Admin Configuration**: The `admin/config.yml` file is pre-configured for all theme components with:
+   - Proper field validation (required/optional)
+   - Rich text editing for markdown content
+   - Image upload and management
+   - Preview templates for all components
+
+### Content Editing Features
+
+- **Visual Previews**: Real-time preview of all theme components while editing
+- **Media Management**: Upload and organize images directly in the CMS
+- **Markdown Support**: Rich text editor with markdown preview
+- **Component Library**: All 12 theme components available as reusable sections
+- **SEO Fields**: Built-in meta description, social sharing, and SEO optimization
+
+## Ruby Compatibility
+
+This theme is compatible with Ruby 3.0+ and has been specifically updated for Ruby 3.4+. The GitHub Actions workflow automatically handles:
+
+- Ruby 3.4 installation
+- Required gems for Ruby 3.4+ compatibility (`csv`, `logger`, `base64`)
+- ImageMagick for image processing
+- All Jekyll plugins and dependencies
+
+For local development, ensure you have Ruby 3.0 or higher installed.
 
 ## Image Credits
 

@@ -394,9 +394,9 @@ var PagePreview = createClass({
               );
               
             case 'social_links':
-              var links = section.get('links');
+              var socials = section.get('socials');
               return h('div', { key: index, className: 'social-links-preview' },
-                section.get('title') && h('h3', {}, section.get('title')),
+                section.get('heading') && h('h3', {}, section.get('heading')),
                 h('div', {
                   style: {
                     display: 'flex',
@@ -405,10 +405,10 @@ var PagePreview = createClass({
                     marginTop: '15px'
                   }
                 },
-                  links && links.map(function(link, linkIndex) {
+                  socials && socials.map(function(social, socialIndex) {
                     return h('a', {
-                      key: linkIndex,
-                      href: link.get('url'),
+                      key: socialIndex,
+                      href: social.get('url'),
                       style: {
                         display: 'flex',
                         alignItems: 'center',
@@ -421,8 +421,8 @@ var PagePreview = createClass({
                       }
                     },
                       h('span', { style: { fontSize: '18px' } }, '🔗'),
-                      section.get('show_titles') !== false && link.get('title') &&
-                        h('span', {}, link.get('title'))
+                      section.get('show_titles') !== false && social.get('name') &&
+                        h('span', {}, social.get('name'))
                     );
                   })
                 )
@@ -568,10 +568,10 @@ var PagePreview = createClass({
                         gap: '10px'
                       }
                     },
-                      section.get('social_links') && section.get('social_links').map(function(link, linkIndex) {
+                      section.get('socials') && section.get('socials').map(function(social, socialIndex) {
                         return h('a', {
-                          key: linkIndex,
-                          href: link.get('url'),
+                          key: socialIndex,
+                          href: social.get('url'),
                           style: {
                             display: 'flex',
                             alignItems: 'center',
@@ -584,7 +584,7 @@ var PagePreview = createClass({
                           }
                         },
                           h('span', {}, '🔗'),
-                          h('span', {}, link.get('title') || link.get('platform'))
+                          h('span', {}, social.get('name'))
                         );
                       })
                     )
