@@ -14,6 +14,13 @@ public_folder: "/assets/images"
 locale: "en"
 show_preview_links: true
 
+# Custom preview templates
+editor:
+  preview: true
+
+# Load custom preview templates
+load_config_file: false
+
 # Site settings
 site_url: https://jekyll.arbutuscode.ca
 display_url: https://jekyll.arbutuscode.ca
@@ -336,14 +343,14 @@ collections:
 
           # Text Section (docs: text-section)
           - label: "Text Section"
-            name: "text-section"
+            name: "text_section"
             widget: "object"
             fields:
               - {
                   label: "Type",
                   name: "type",
                   widget: "hidden",
-                  default: "text-section",
+                  default: "text_section",
                 }
               - {
                   label: "Heading",
@@ -351,7 +358,12 @@ collections:
                   widget: "string",
                   required: false,
                 }
-              - { label: "Content", name: "text", widget: "markdown" }
+              - { 
+                  label: "Content", 
+                  name: "text", 
+                  widget: "markdown",
+                  required: false
+                }
 
           # Split Section (docs: split)
           - label: "Split Section"
@@ -585,11 +597,18 @@ collections:
                   required: false,
                 }
               - {
-                  label: "Socials",
-                  name: "socials",
+                  label: "CSS Class",
+                  name: "class",
                   widget: "string",
-                  default: "site.socials",
-                  hint: "Use site.socials to reference global social links",
+                  required: false,
+                  hint: "Additional CSS classes",
+                }
+              - {
+                  label: "Show Titles",
+                  name: "show_titles",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
                 }
 
           # Contact Form Section (docs: contact_form)
