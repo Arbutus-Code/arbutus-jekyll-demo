@@ -71,7 +71,7 @@ var PagePreview = createClass({
                 ),
                 section.get('image') && h('div', { style: { textAlign: 'center' } },
                   h('img', {
-                    src: getAsset(section.get('image')),
+                    src: section.get('image') ? getAsset(section.get('image')) : '',
                     alt: section.get('image_alt') || section.get('title'),
                     style: {
                       maxWidth: '100%',
@@ -96,7 +96,7 @@ var PagePreview = createClass({
               return h('div', { key: index, className: 'split-section-preview' },
                 h('div', { style: { display: 'flex', gap: '20px', alignItems: 'center' } },
                   section.get('image') && h('img', {
-                    src: getAsset(section.get('image')),
+                    src: section.get('image') ? getAsset(section.get('image')) : '',
                     alt: section.get('image_alt') || section.get('heading'),
                     style: { 
                       maxWidth: '200px', 
@@ -166,7 +166,7 @@ var PagePreview = createClass({
                           }
                         },
                           h('img', {
-                            src: getAsset(card.get('image')),
+                            src: card.get('image') ? getAsset(card.get('image')) : '',
                             alt: card.get('image_alt') || card.get('title'),
                             style: {
                               width: '100%',
@@ -290,7 +290,7 @@ var PagePreview = createClass({
                 ),
                 section.get('image') && h('div', { style: { textAlign: 'center' } },
                   h('img', {
-                    src: getAsset(section.get('image')),
+                    src: section.get('image') ? getAsset(section.get('image')) : '',
                     alt: section.get('image_alt') || section.get('title'),
                     style: {
                       maxWidth: '100%',
@@ -356,7 +356,7 @@ var PagePreview = createClass({
                           }
                         },
                           h('img', {
-                            src: getAsset(member.get('image')),
+                            src: member.get('image') ? getAsset(member.get('image')) : '',
                             alt: member.get('name'),
                             style: {
                               width: '100%',
