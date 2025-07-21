@@ -598,58 +598,6 @@ var PagePreview = createClass({
                     );
 
                   case "social_links":
-                    // Match theme implementation: use section socials or fall back to global site socials
-                    var sectionSocials = section.get("socials");
-                    var showTitles = section.get("show_titles");
-
-                    // In real theme, this would use site.socials as fallback, but in preview we only have section data
-                    // Show a note if no socials are defined in the section
-                    if (!sectionSocials || sectionSocials.size === 0) {
-                      return h(
-                        "div",
-                        { key: index, className: "social-links-preview" },
-                        section.get("heading") &&
-                          h(
-                            "h3",
-                            {
-                              style: {
-                                textAlign: "center",
-                                marginBottom: "1rem",
-                              },
-                            },
-                            section.get("heading")
-                          ),
-                        h(
-                          "div",
-                          {
-                            style: {
-                              textAlign: "center",
-                              padding: "2rem",
-                              backgroundColor: "#f8f9fa",
-                              borderRadius: "8px",
-                              border: "2px dashed #dee2e6",
-                            },
-                          },
-                          h(
-                            "p",
-                            { style: { margin: "0", color: "#6c757d" } },
-                            "Social links will display from site configuration (site.socials)"
-                          ),
-                          h(
-                            "p",
-                            {
-                              style: {
-                                margin: "0.5rem 0 0 0",
-                                fontSize: "0.875rem",
-                                color: "#6c757d",
-                              },
-                            },
-                            "Or add custom social links in this section to override global settings"
-                          )
-                        )
-                      );
-                    }
-
                     return h(
                       "div",
                       { key: index, className: "social-links-preview" },
@@ -660,6 +608,8 @@ var PagePreview = createClass({
                             style: {
                               textAlign: "center",
                               marginBottom: "1rem",
+                              fontSize: "1.5rem",
+                              fontWeight: "600",
                             },
                           },
                           section.get("heading")
@@ -668,93 +618,44 @@ var PagePreview = createClass({
                         "div",
                         {
                           style: {
-                            display: "flex",
-                            gap: "15px",
-                            justifyContent: "center",
-                            flexWrap: "wrap",
-                            marginTop: "15px",
+                            textAlign: "center",
+                            padding: "2rem",
+                            backgroundColor: "#f8f9fa",
+                            borderRadius: "8px",
+                            border: "2px dashed #dee2e6",
+                            margin: "1rem 0",
                           },
                         },
-                        sectionSocials.map(function (social, socialIndex) {
-                          // Add null checks for social data
-                          if (!social || typeof social.get !== "function") {
-                            return h(
-                              "div",
-                              { key: socialIndex },
-                              "Invalid social data"
-                            );
-                          }
-
-                          return h(
-                            "div",
+                        h(
+                          "p",
+                          { 
+                            style: { 
+                              margin: "0 0 0.5rem 0", 
+                              color: "#495057",
+                              fontSize: "1rem",
+                              fontWeight: "500"
+                            } 
+                          },
+                          "🔗 Social Links Section"
+                        ),
+                        h(
+                          "p",
+                          { style: { margin: "0", color: "#6c757d", fontSize: "0.875rem" } },
+                          "This section will display your site's social media links from the global configuration."
+                        ),
+                        section.get("show_titles") === false &&
+                          h(
+                            "p",
                             {
-                              key: socialIndex,
                               style: {
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                gap: "8px",
+                                margin: "0.5rem 0 0 0",
+                                fontSize: "0.75rem",
+                                color: "#6c757d",
+                                fontStyle: "italic"
                               },
                             },
-                            // Show title if enabled (default: true)
-                            showTitles !== false &&
-                              social.get("name") &&
-                              h(
-                                "h4",
-                                {
-                                  style: {
-                                    margin: "0",
-                                    fontSize: "0.875rem",
-                                    fontWeight: "600",
-                                    color: "#495057",
-                                  },
-                                },
-                                String(social.get("name") || "")
-                              ),
-                            h(
-                              "a",
-                              {
-                                href: (social.get("url") && String(social.get("url"))) || "#",
-                                style: {
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  width: "40px",
-                                  height: "40px",
-                                  backgroundColor: "#f8f9fa",
-                                  borderRadius: "50%",
-                                  textDecoration: "none",
-                                  color: "#495057",
-                                  border: "1px solid #dee2e6",
-                                  transition: "all 0.2s ease",
-                                },
-                              },
-                              // Use icon name to show which social platform
-                              h(
-                                "span",
-                                {
-                                  style: { fontSize: "18px" },
-                                  title: (social.get("icon") && String(social.get("icon"))) || "social",
-                                },
-                                String(social.get("icon") || "").toLowerCase() === "twitter"
-                                  ? "🐦"
-                                  : String(social.get("icon") || "").toLowerCase() === "facebook"
-                                  ? "📘"
-                                  : String(social.get("icon") || "").toLowerCase() === "instagram"
-                                  ? "📷"
-                                  : String(social.get("icon") || "").toLowerCase() === "linkedin"
-                                  ? "💼"
-                                  : String(social.get("icon") || "").toLowerCase() === "youtube"
-                                  ? "📺"
-                                  : String(social.get("icon") || "").toLowerCase() === "github"
-                                  ? "🐙"
-                                  : String(social.get("icon") || "").toLowerCase() === "email"
-                                  ? "✉️"
-                                  : "🔗"
-                              )
-                            )
-                          );
-                        })
+                            "Note: Platform titles will be hidden"
+                          )
                       )
                     );
 
@@ -936,7 +837,7 @@ var PagePreview = createClass({
                             "Send"
                           )
                         ),
-                        // Social links column - matches theme implementation
+                        // Social links column - always uses global site configuration
                         h(
                           "div",
                           {},
@@ -945,127 +846,55 @@ var PagePreview = createClass({
                             { style: { marginBottom: "1rem" } },
                             section.get("heading") || "Connect With Us"
                           ),
-                          // In real theme, this uses {% include social-links.html socials=include.socials %}
-                          // Show appropriate message based on whether section has custom socials
-                          section.get("socials") &&
-                            section.get("socials").size > 0
-                            ? // Custom socials defined in section
+                          // Always show note about global site socials (matches our refactored system)
+                          h(
+                            "div",
+                            {
+                              style: {
+                                padding: "1rem",
+                                backgroundColor: "#f8f9fa",
+                                borderRadius: "6px",
+                                border: "1px dashed #dee2e6",
+                                textAlign: "center",
+                              },
+                            },
+                            h(
+                              "p",
+                              {
+                                style: {
+                                  margin: "0 0 0.5rem 0",
+                                  fontSize: "0.875rem",
+                                  color: "#495057",
+                                  fontWeight: "500"
+                                },
+                              },
+                              "🔗 Social Media Links"
+                            ),
+                            h(
+                              "p",
+                              {
+                                style: {
+                                  margin: "0",
+                                  fontSize: "0.75rem",
+                                  color: "#6c757d",
+                                },
+                              },
+                              "Social links from site configuration will appear here"
+                            ),
+                            section.get("show_titles") === false &&
                               h(
-                                "div",
+                                "p",
                                 {
                                   style: {
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "10px",
+                                    margin: "0.5rem 0 0 0",
+                                    fontSize: "0.7rem",
+                                    color: "#6c757d",
+                                    fontStyle: "italic"
                                   },
                                 },
-                                section
-                                  .get("socials")
-                                  .map(function (social, socialIndex) {
-                                    // Add null checks for social data
-                                    if (
-                                      !social ||
-                                      typeof social.get !== "function"
-                                    ) {
-                                      return h(
-                                        "div",
-                                        { key: socialIndex },
-                                        "Invalid social data"
-                                      );
-                                    }
-
-                                    return h(
-                                      "div",
-                                      {
-                                        key: socialIndex,
-                                        style: {
-                                          display: "flex",
-                                          alignItems: "center",
-                                          gap: "10px",
-                                        },
-                                      },
-                                      // Show title if show_titles is not false
-                                      section.get("show_titles") !== false &&
-                                        social.get("name") &&
-                                        h(
-                                          "h4",
-                                          {
-                                            style: {
-                                              margin: "0 0 4px 0",
-                                              fontSize: "0.875rem",
-                                              fontWeight: "600",
-                                            },
-                                          },
-                                          social.get("name")
-                                        ),
-                                      h(
-                                        "a",
-                                        {
-                                          href: social.get("url") || "#",
-                                          style: {
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            width: "32px",
-                                            height: "32px",
-                                            backgroundColor: "#f8f9fa",
-                                            borderRadius: "50%",
-                                            textDecoration: "none",
-                                            color: "#495057",
-                                            border: "1px solid #dee2e6",
-                                          },
-                                        },
-                                        h(
-                                          "span",
-                                          {
-                                            style: { fontSize: "16px" },
-                                            title:
-                                              social.get("icon") || "social",
-                                          },
-                                          social.get("icon") === "twitter"
-                                            ? "🐦"
-                                            : social.get("icon") === "facebook"
-                                            ? "📘"
-                                            : social.get("icon") === "instagram"
-                                            ? "📷"
-                                            : social.get("icon") === "linkedin"
-                                            ? "💼"
-                                            : social.get("icon") === "youtube"
-                                            ? "📺"
-                                            : social.get("icon") === "github"
-                                            ? "🐙"
-                                            : social.get("icon") === "email"
-                                            ? "✉️"
-                                            : "🔗"
-                                        )
-                                      )
-                                    );
-                                  })
+                                "Note: Platform titles will be hidden"
                               )
-                            : // No custom socials - show note about global site socials
-                              h(
-                                "div",
-                                {
-                                  style: {
-                                    padding: "1rem",
-                                    backgroundColor: "#f8f9fa",
-                                    borderRadius: "6px",
-                                    border: "1px dashed #dee2e6",
-                                    textAlign: "center",
-                                  },
-                                },
-                                h(
-                                  "p",
-                                  {
-                                    style: {
-                                      margin: "0",
-                                      fontSize: "0.875rem",
-                                      color: "#6c757d",
-                                    },
-                                  },
-                                  "Social links from site configuration will appear here"
-                                )
-                              )
+                          )
                         )
                       )
                     );

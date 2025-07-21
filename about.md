@@ -87,17 +87,8 @@ sections:
         bio: Sarah develops educational materials and organizes volunteer activities for
           Arbutus conservation projects.
   - type: social_links
-    heading: Follow Us
-    socials:
-      - name: Twitter
-        url: https://twitter.com/arbutusconserve
-        icon: twitter
-      - name: Facebook
-        url: https://facebook.com/arbutusconservation
-        icon: facebook
-      - name: Instagram
-        url: https://instagram.com/arbutusconserve
-        icon: instagram
+    heading: Follow Our Conservation Work
+    show_titles: true
   - type: cta
     title: Join Our Conservation Efforts
     description: Help us protect Vancouver Island's iconic Arbutus trees for future

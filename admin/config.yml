@@ -125,6 +125,25 @@ collections:
                     ],
                   hint: "Select from available social icons in the theme sprite",
                 }
+          - label: "Footer Settings"
+            name: "footer"
+            widget: "object"
+            required: false
+            fields:
+              - {
+                  label: "Show Contact Information",
+                  name: "show_contact",
+                  widget: "boolean",
+                  default: true,
+                  hint: "Display contact information (address, email, phone) in the footer"
+                }
+              - {
+                  label: "Show Social Media Links",
+                  name: "show_social",
+                  widget: "boolean",
+                  default: true,
+                  hint: "Display social media links in the footer"
+                }
           - label: "Web3Forms Configuration"
             name: "web3forms"
             widget: "object"
