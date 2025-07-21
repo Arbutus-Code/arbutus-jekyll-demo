@@ -709,12 +709,12 @@ var PagePreview = createClass({
                                     color: "#495057",
                                   },
                                 },
-                                social.get("name")
+                                String(social.get("name") || "")
                               ),
                             h(
                               "a",
                               {
-                                href: social.get("url") || "#",
+                                href: (social.get("url") && String(social.get("url"))) || "#",
                                 style: {
                                   display: "flex",
                                   alignItems: "center",
@@ -734,21 +734,21 @@ var PagePreview = createClass({
                                 "span",
                                 {
                                   style: { fontSize: "18px" },
-                                  title: social.get("icon") || "social",
+                                  title: (social.get("icon") && String(social.get("icon"))) || "social",
                                 },
-                                social.get("icon") === "twitter"
+                                String(social.get("icon") || "").toLowerCase() === "twitter"
                                   ? "🐦"
-                                  : social.get("icon") === "facebook"
+                                  : String(social.get("icon") || "").toLowerCase() === "facebook"
                                   ? "📘"
-                                  : social.get("icon") === "instagram"
+                                  : String(social.get("icon") || "").toLowerCase() === "instagram"
                                   ? "📷"
-                                  : social.get("icon") === "linkedin"
+                                  : String(social.get("icon") || "").toLowerCase() === "linkedin"
                                   ? "💼"
-                                  : social.get("icon") === "youtube"
+                                  : String(social.get("icon") || "").toLowerCase() === "youtube"
                                   ? "📺"
-                                  : social.get("icon") === "github"
+                                  : String(social.get("icon") || "").toLowerCase() === "github"
                                   ? "🐙"
-                                  : social.get("icon") === "email"
+                                  : String(social.get("icon") || "").toLowerCase() === "email"
                                   ? "✉️"
                                   : "🔗"
                               )
