@@ -1,0 +1,9 @@
+favicon_ico: /assets/media/favicons/favicon.ico
+favicon_png: /assets/media/favicons/favicon.png
+favicon_svg: /assets/media/favicons/favicon.svg
+manifest:
+  name: Arbutus Code
+  short_name: Arbutus
+  theme_color: "#BF5841"
+  background_color: "#ffffff"
+  display: standalone

@@ -1,0 +1,1144 @@
+backend:
+  name: github
+  repo: Arbutus-Code/arbutus-jekyll-demo
+  branch: main
+  base_url: https://oauth.arbutuscode.ca
+
+logo_url: /assets/media/logos/arbutus-tree-black.svg
+
+# Media storage
+media_folder: "assets/media"
+public_folder: "/assets/media"
+
+# Editor settings
+locale: "en"
+show_preview_links: true
+
+# Custom preview templates
+editor:
+  preview: true
+
+# Load custom preview templates
+load_config_file: false
+
+# Site settings
+site_url: https://jekyll.arbutuscode.ca
+display_url: https://jekyll.arbutuscode.ca
+
+# Collections
+collections:
+  # Site configuration files
+  - name: "config_files"
+    label: "Site Configuration"
+    type: "files"
+    media_folder: "/assets/media/logos"
+    public_folder: "/assets/media/logos"
+    files:
+      # Site settings (_config.yml)
+      - label: "Site Settings"
+        name: "site_config"
+        file: "_config.yml"
+        extension: "yml"
+        format: "yml"
+        editor:
+          preview: false
+        description: "Site-wide settings and configuration"
+        fields:
+          - { label: "Site Title", name: "title", widget: "string" }
+          - {
+              label: "Site Description",
+              name: "description",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Logo",
+              name: "logo",
+              widget: "image",
+              required: false,
+              hint: "Main site logo displayed in the header",
+            }
+          - {
+              label: "Footer Logo",
+              name: "footer_logo",
+              widget: "image",
+              required: false,
+              hint: "Logo displayed in the footer (can be the same as main logo)",
+            }
+          - {
+              label: "Base URL",
+              name: "baseurl",
+              widget: "string",
+              required: false,
+              hint: "Usually empty or e.g., /my-repo if hosted in a subdirectory",
+            }
+          - {
+              label: "URL",
+              name: "url",
+              widget: "string",
+              hint: "Full site URL, e.g., https://example.com",
+            }
+          - label: "Contact Information"
+            name: "contact"
+            widget: "object"
+            required: false
+            fields:
+              - {
+                  label: "Address",
+                  name: "address",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Email",
+                  name: "email",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Phone",
+                  name: "phone",
+                  widget: "string",
+                  required: false,
+                }
+          - label: "Social Media Links"
+            name: "socials"
+            widget: "list"
+            identifier_field: "name"
+            required: false
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - {
+                  label: "Icon",
+                  name: "icon",
+                  widget: "select",
+                  options:
+                    [
+                      "twitter",
+                      "facebook",
+                      "instagram",
+                      "linkedin",
+                      "youtube",
+                      "github",
+                      "email",
+                    ],
+                  hint: "Select from available social icons in the theme sprite",
+                }
+          - label: "Footer Settings"
+            name: "footer"
+            widget: "object"
+            required: false
+            fields:
+              - {
+                  label: "Show Contact Information",
+                  name: "show_contact",
+                  widget: "boolean",
+                  default: true,
+                  hint: "Display contact information (address, email, phone) in the footer",
+                }
+              - {
+                  label: "Show Social Media Links",
+                  name: "show_social",
+                  widget: "boolean",
+                  default: true,
+                  hint: "Display social media links in the footer",
+                }
+          - label: "Web3Forms Configuration"
+            name: "web3forms"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Access Key", name: "access_key", widget: "string" }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                }
+          - {
+              label: "Theme",
+              name: "theme",
+              widget: "string",
+              default: "arbutus-theme",
+            }
+  # Favicon configuration
+  - name: "favicons"
+    label: "Favicons"
+    type: "files"
+    media_folder: "/assets/media/favicons"
+    public_folder: "/assets/media/favicons"
+    files:
+      - label: "Favicon Settings"
+        name: "favicon_settings"
+        file: "_data/favicon_settings.yml"
+        editor:
+          preview: false
+        description: "Configure your site favicons and web app manifest"
+        fields:
+          - label: "Favicon ICO"
+            name: "favicon_ico"
+            widget: "image"
+            required: true
+            hint: "Upload a favicon.ico file (required)"
+            media_library:
+              config:
+                multiple: false
+          - label: "Favicon PNG"
+            name: "favicon_png"
+            widget: "image"
+            required: false
+            hint: "Upload a high-quality PNG image (at least 512x512px recommended)"
+            media_library:
+              config:
+                multiple: false
+          - label: "Favicon SVG"
+            name: "favicon_svg"
+            widget: "image"
+            required: false
+            hint: "Upload an SVG favicon (optional)"
+            media_library:
+              config:
+                multiple: false
+          - label: "Web App Manifest"
+            name: "manifest"
+            widget: "object"
+            summary: "Web App Manifest Settings"
+            fields:
+              - label: "App Name"
+                name: "name"
+                widget: "string"
+                required: true
+                hint: "Full name of your web application"
+              - label: "Short Name"
+                name: "short_name"
+                widget: "string"
+                required: true
+                hint: "Short name for app icons"
+              - label: "Theme Color"
+                name: "theme_color"
+                widget: "color"
+                required: true
+                default: "#ffffff"
+                hint: "Theme color for browser UI"
+              - label: "Background Color"
+                name: "background_color"
+                widget: "color"
+                required: true
+                default: "#ffffff"
+                hint: "Background color for splash screen"
+              - label: "Display Mode"
+                name: "display"
+                widget: "select"
+                options: ["standalone", "fullscreen", "minimal-ui", "browser"]
+                default: "standalone"
+                required: true
+                hint: "How the app should be displayed"
+
+  # Brand colors configuration
+  - name: "brand_colors"
+    label: "Brand Colors"
+    type: "files"
+    files:
+      - label: "Brand Palette"
+        name: "brand_palette"
+        file: "_data/brand_colors.yml"
+        editor:
+          preview: false
+        description: "Brand color palette configuration (generates _sass/_brand.scss during build)"
+        fields:
+          - label: "Primary Color"
+            name: "color_primary"
+            widget: "color"
+            required: true
+            hint: "Main brand color"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+          - label: "Primary Dark Color"
+            name: "color_primary_dark"
+            widget: "color"
+            required: true
+            hint: "Darker version of primary color"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+          - label: "Primary Light Color"
+            name: "color_primary_light"
+            widget: "color"
+            required: true
+            hint: "Lighter version of primary color"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+          - label: "Accent Dark Color"
+            name: "color_accent_dark"
+            widget: "color"
+            required: true
+            hint: "Dark accent color"
+            pattern: ["^#([A-Fa-f0-9]{6})$", "Must be a valid hex color"]
+
+  # Navigation configuration files
+  - name: "navigation"
+    label: "Navigation"
+    type: "files"
+    files:
+      # Navigation (_data/navigation.yml)
+      - label: "Navigation"
+        name: "navigation"
+        file: "_data/navigation.yml"
+        extension: "yml"
+        format: "yml"
+        editor:
+          preview: false
+        description: "Site navigation menu configuration"
+        fields:
+          - label: "Main Navigation Links"
+            name: "main_nav_links"
+            widget: "list"
+            identifier_field: "name"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+          - label: "Footer Navigation Links"
+            name: "footer_nav_links"
+            widget: "list"
+            identifier_field: "name"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+  # Pages collection for standard pages (e.g., about.md, donate.md)
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    folder: "/"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "layout", value: "page" }
+    editor:
+      preview: true
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "page" }
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Permalink",
+          name: "permalink",
+          widget: "string",
+          pattern: ["^/[a-zA-Z0-9-_/]*/$", "Must start and end with /"],
+          required: false,
+        }
+      - label: "Page Sections"
+        name: "sections"
+        widget: "list"
+        types:
+          # Hero Section (docs: hero)
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "hero",
+                }
+              - { label: "Title", name: "title", widget: "string" }
+              - {
+                  label: "Subtitle",
+                  name: "subtitle",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                }
+              - {
+                  label: "Image Alt Text",
+                  name: "image_alt",
+                  widget: "string",
+                  required: false,
+                  hint: "Defaults to title if not provided",
+                }
+              - {
+                  label: "CTA Button Text",
+                  name: "cta_text",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "CTA Button URL",
+                  name: "cta_url",
+                  widget: "string",
+                  required: false,
+                }
+
+          # Text Section (docs: text-section)
+          - label: "Text Section"
+            name: "text-section"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "text-section",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Content",
+                  name: "text",
+                  widget: "markdown",
+                  required: false,
+                }
+
+          # Split Section (docs: split)
+          - label: "Split Section"
+            name: "split"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "split",
+                }
+              - {
+                  label: "Image",
+                  name: "image",
+                  widget: "image",
+                  required: false,
+                }
+              - {
+                  label: "Image Alt Text",
+                  name: "image_alt",
+                  widget: "string",
+                  required: false,
+                  hint: "Defaults to heading if not provided",
+                }
+              - {
+                  label: "Image Position",
+                  name: "image_position",
+                  widget: "select",
+                  options: ["left", "right"],
+                  default: "left",
+                  required: false,
+                }
+              - {
+                  label: "Image Caption",
+                  name: "image_caption",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Content",
+                  name: "text",
+                  widget: "markdown",
+                  required: false,
+                }
+
+          # CTA Section (docs: cta)
+          - label: "CTA Section"
+            name: "cta"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "cta",
+                }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - {
+                  label: "Center Content",
+                  name: "center_content",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+              - {
+                  label: "Image URL",
+                  name: "image_url",
+                  widget: "image",
+                  required: false,
+                }
+              - {
+                  label: "Image Alt Text",
+                  name: "image_alt",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Primary Button Text",
+                  name: "primary_button_text",
+                  widget: "string",
+                  required: true,
+                }
+              - {
+                  label: "Primary Button URL",
+                  name: "primary_button_url",
+                  widget: "string",
+                  required: true,
+                }
+              - {
+                  label: "Secondary Button Text",
+                  name: "secondary_button_text",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Secondary Button URL",
+                  name: "secondary_button_url",
+                  widget: "string",
+                  required: false,
+                }
+
+          # Featured Cards Section (docs: featured_cards)
+          - label: "Featured Cards Section"
+            name: "featured_cards"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "featured_cards",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - label: "Cards"
+                name: "cards"
+                widget: "list"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - {
+                      label: "Description",
+                      name: "description",
+                      widget: "text",
+                    }
+                  - {
+                      label: "URL",
+                      name: "url",
+                      widget: "string",
+                      required: true,
+                    }
+                  - {
+                      label: "CTA Text",
+                      name: "cta_text",
+                      widget: "string",
+                      default: "Learn More",
+                      required: true,
+                    }
+                  - {
+                      label: "Media Type",
+                      name: "media_type",
+                      widget: "select",
+                      options: ["image", "icon"],
+                      required: false,
+                    }
+                  - {
+                      label: "Image",
+                      name: "image",
+                      widget: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image Alt Text",
+                      name: "image_alt",
+                      widget: "string",
+                      required: false,
+                      hint: "Defaults to card title",
+                    }
+                  - {
+                      label: "Icon",
+                      name: "icon",
+                      widget: "select",
+                      options:
+                        [
+                          "--- ARROWS & NAVIGATION ---",
+                          "arrow-down",
+                          "arrow-down-circle",
+                          "arrow-down-left",
+                          "arrow-down-on-square",
+                          "arrow-down-on-square-stack",
+                          "arrow-down-right",
+                          "arrow-down-tray",
+                          "arrow-left",
+                          "arrow-left-circle",
+                          "arrow-left-end-on-rectangle",
+                          "arrow-left-on-rectangle",
+                          "arrow-left-start-on-rectangle",
+                          "arrow-long-down",
+                          "arrow-long-left",
+                          "arrow-long-right",
+                          "arrow-long-up",
+                          "arrow-path",
+                          "arrow-path-rounded-square",
+                          "arrow-right",
+                          "arrow-right-circle",
+                          "arrow-right-end-on-rectangle",
+                          "arrow-right-on-rectangle",
+                          "arrow-right-start-on-rectangle",
+                          "arrow-small-down",
+                          "arrow-small-left",
+                          "arrow-small-right",
+                          "arrow-small-up",
+                          "arrow-top-right-on-square",
+                          "arrow-trending-down",
+                          "arrow-trending-up",
+                          "arrow-turn-down-left",
+                          "arrow-turn-down-right",
+                          "arrow-turn-left-down",
+                          "arrow-turn-left-up",
+                          "arrow-turn-right-down",
+                          "arrow-turn-right-up",
+                          "arrow-turn-up-left",
+                          "arrow-turn-up-right",
+                          "arrow-up",
+                          "arrow-up-circle",
+                          "arrow-up-left",
+                          "arrow-up-on-square",
+                          "arrow-up-on-square-stack",
+                          "arrow-up-right",
+                          "arrow-up-tray",
+                          "arrow-uturn-down",
+                          "arrow-uturn-left",
+                          "arrow-uturn-right",
+                          "arrow-uturn-up",
+                          "arrows-pointing-in",
+                          "arrows-pointing-out",
+                          "arrows-right-left",
+                          "arrows-up-down",
+                          "chevron-double-down",
+                          "chevron-double-left",
+                          "chevron-double-right",
+                          "chevron-double-up",
+                          "chevron-down",
+                          "chevron-left",
+                          "chevron-right",
+                          "chevron-up",
+                          "chevron-up-down",
+                          "--- BUSINESS & FINANCE ---",
+                          "banknotes",
+                          "briefcase",
+                          "building-library",
+                          "building-office",
+                          "building-office-2",
+                          "building-storefront",
+                          "calculator",
+                          "chart-bar",
+                          "chart-bar-square",
+                          "chart-pie",
+                          "credit-card",
+                          "currency-bangladeshi",
+                          "currency-dollar",
+                          "currency-euro",
+                          "currency-pound",
+                          "currency-rupee",
+                          "currency-yen",
+                          "presentation-chart-bar",
+                          "presentation-chart-line",
+                          "receipt-percent",
+                          "receipt-refund",
+                          "scale",
+                          "shopping-bag",
+                          "shopping-cart",
+                          "truck",
+                          "--- COMMUNICATION ---",
+                          "at-symbol",
+                          "chat-bubble-bottom-center",
+                          "chat-bubble-bottom-center-text",
+                          "chat-bubble-left",
+                          "chat-bubble-left-ellipsis",
+                          "chat-bubble-left-right",
+                          "chat-bubble-oval-left",
+                          "chat-bubble-oval-left-ellipsis",
+                          "envelope",
+                          "envelope-open",
+                          "megaphone",
+                          "microphone",
+                          "phone",
+                          "phone-arrow-down-left",
+                          "phone-arrow-up-right",
+                          "phone-x-mark",
+                          "--- CONTENT & MEDIA ---",
+                          "book-open",
+                          "camera",
+                          "document",
+                          "document-arrow-down",
+                          "document-arrow-up",
+                          "document-chart-bar",
+                          "document-check",
+                          "document-currency-bangladeshi",
+                          "document-currency-dollar",
+                          "document-currency-euro",
+                          "document-currency-pound",
+                          "document-currency-rupee",
+                          "document-currency-yen",
+                          "document-duplicate",
+                          "document-magnifying-glass",
+                          "document-minus",
+                          "document-plus",
+                          "document-text",
+                          "film",
+                          "gif",
+                          "musical-note",
+                          "newspaper",
+                          "photo",
+                          "play",
+                          "play-circle",
+                          "play-pause",
+                          "video-camera",
+                          "video-camera-slash",
+                          "--- EDITING & FORMATTING ---",
+                          "backspace",
+                          "bold",
+                          "code-bracket",
+                          "code-bracket-square",
+                          "h1",
+                          "h2",
+                          "h3",
+                          "hashtag",
+                          "italic",
+                          "numbered-list",
+                          "list-bullet",
+                          "paint-brush",
+                          "pencil",
+                          "pencil-square",
+                          "scissors",
+                          "strikethrough",
+                          "underline",
+                          "--- INTERFACE & CONTROLS ---",
+                          "adjustments-horizontal",
+                          "adjustments-vertical",
+                          "bars-2",
+                          "bars-3",
+                          "bars-3-bottom-left",
+                          "bars-3-bottom-right",
+                          "bars-3-center-left",
+                          "bars-4",
+                          "bars-arrow-down",
+                          "bars-arrow-up",
+                          "cog",
+                          "cog-6-tooth",
+                          "cog-8-tooth",
+                          "command-line",
+                          "cursor-arrow-rays",
+                          "cursor-arrow-ripple",
+                          "ellipsis-horizontal",
+                          "ellipsis-horizontal-circle",
+                          "ellipsis-vertical",
+                          "funnel",
+                          "queue-list",
+                          "rectangle-group",
+                          "rectangle-stack",
+                          "squares-2x2",
+                          "squares-plus",
+                          "square-2-stack",
+                          "square-3-stack-3d",
+                          "table-cells",
+                          "view-columns",
+                          "viewfinder-circle",
+                          "window",
+                          "--- MATH & SYMBOLS ---",
+                          "check",
+                          "check-badge",
+                          "check-circle",
+                          "divide",
+                          "equals",
+                          "minus",
+                          "minus-circle",
+                          "minus-small",
+                          "no-symbol",
+                          "percent-badge",
+                          "plus",
+                          "plus-circle",
+                          "plus-small",
+                          "slash",
+                          "variable",
+                          "x-circle",
+                          "x-mark",
+                          "--- NOTIFICATIONS & STATUS ---",
+                          "bell",
+                          "bell-alert",
+                          "bell-slash",
+                          "bell-snooze",
+                          "exclamation-circle",
+                          "exclamation-triangle",
+                          "information-circle",
+                          "question-mark-circle",
+                          "--- PEOPLE & SOCIAL ---",
+                          "academic-cap",
+                          "face-frown",
+                          "face-smile",
+                          "hand-raised",
+                          "hand-thumb-down",
+                          "hand-thumb-up",
+                          "heart",
+                          "identification",
+                          "user",
+                          "user-circle",
+                          "user-group",
+                          "user-minus",
+                          "user-plus",
+                          "users",
+                          "--- SECURITY & PRIVACY ---",
+                          "eye",
+                          "eye-dropper",
+                          "eye-slash",
+                          "finger-print",
+                          "key",
+                          "lock-closed",
+                          "lock-open",
+                          "shield-check",
+                          "shield-exclamation",
+                          "--- STORAGE & FILES ---",
+                          "archive-box",
+                          "archive-box-arrow-down",
+                          "archive-box-x-mark",
+                          "circle-stack",
+                          "clipboard",
+                          "clipboard-document",
+                          "clipboard-document-check",
+                          "clipboard-document-list",
+                          "cloud",
+                          "cloud-arrow-down",
+                          "cloud-arrow-up",
+                          "cube",
+                          "cube-transparent",
+                          "folder",
+                          "folder-arrow-down",
+                          "folder-minus",
+                          "folder-open",
+                          "folder-plus",
+                          "inbox",
+                          "inbox-arrow-down",
+                          "inbox-stack",
+                          "server",
+                          "server-stack",
+                          "--- TECHNOLOGY & DEVICES ---",
+                          "beaker",
+                          "bolt",
+                          "bolt-slash",
+                          "bug-ant",
+                          "computer-desktop",
+                          "cpu-chip",
+                          "device-phone-mobile",
+                          "device-tablet",
+                          "printer",
+                          "qr-code",
+                          "radio",
+                          "signal",
+                          "signal-slash",
+                          "speaker-wave",
+                          "speaker-x-mark",
+                          "tv",
+                          "wifi",
+                          "--- TIME & CALENDAR ---",
+                          "calendar",
+                          "calendar-date-range",
+                          "calendar-days",
+                          "clock",
+                          "--- TOOLS & UTILITIES ---",
+                          "bookmark",
+                          "bookmark-slash",
+                          "bookmark-square",
+                          "fire",
+                          "gift",
+                          "gift-top",
+                          "light-bulb",
+                          "link",
+                          "link-slash",
+                          "magnifying-glass",
+                          "magnifying-glass-circle",
+                          "magnifying-glass-minus",
+                          "magnifying-glass-plus",
+                          "map",
+                          "map-pin",
+                          "paper-airplane",
+                          "paper-clip",
+                          "puzzle-piece",
+                          "rocket-launch",
+                          "sparkles",
+                          "star",
+                          "swatch",
+                          "tag",
+                          "ticket",
+                          "trash",
+                          "trophy",
+                          "wallet",
+                          "wrench",
+                          "wrench-screwdriver",
+                          "--- TRANSPORT & LOCATION ---",
+                          "backward",
+                          "cake",
+                          "flag",
+                          "forward",
+                          "globe-alt",
+                          "globe-americas",
+                          "globe-asia-australia",
+                          "globe-europe-africa",
+                          "home",
+                          "home-modern",
+                          "language",
+                          "lifebuoy",
+                          "moon",
+                          "pause",
+                          "pause-circle",
+                          "power",
+                          "rss",
+                          "share",
+                          "stop",
+                          "stop-circle",
+                          "sun",
+                          "--- POWER & BATTERY ---",
+                          "battery-0",
+                          "battery-50",
+                          "battery-100",
+                        ],
+                      required: false,
+                      hint: "Select from 324 available heroicons organized by category",
+                    }
+
+          # Team Members Section
+          - label: "Team Members Section"
+            name: "team"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "team",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Show Images",
+                  name: "show_images",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+              - label: "Members"
+                name: "members"
+                widget: "list"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - {
+                      label: "Title",
+                      name: "title",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Bio",
+                      name: "bio",
+                      widget: "text",
+                      required: false,
+                    }
+                  - {
+                      label: "Image",
+                      name: "image",
+                      widget: "image",
+                      required: false,
+                    }
+                  - {
+                      label: "Image Alt Text",
+                      name: "image_alt",
+                      widget: "string",
+                      required: false,
+                    }
+
+          # Social Links Section
+          - label: "Social Links Section"
+            name: "social_links"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "social_links",
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "CSS Class",
+                  name: "class",
+                  widget: "string",
+                  required: false,
+                  hint: "Additional CSS classes",
+                }
+              - {
+                  label: "Show Titles",
+                  name: "show_titles",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+
+          # Contact Form Section (docs: contact_form)
+          - label: "Contact Form Section"
+            name: "contact_form"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "contact_form",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "text",
+                  required: false,
+                }
+              - {
+                  label: "Access Key",
+                  name: "access_key",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Submit Button Text",
+                  name: "submit_text",
+                  widget: "string",
+                  default: "Send Message",
+                  required: false,
+                }
+
+          # Contact Form with Socials Section (docs: contact_form_socials)
+          - label: "Contact Form with Socials"
+            name: "contact_form_socials"
+            widget: "object"
+            fields:
+              - {
+                  label: "Type",
+                  name: "type",
+                  widget: "hidden",
+                  default: "contact_form_socials",
+                }
+              - {
+                  label: "Title",
+                  name: "title",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Heading",
+                  name: "heading",
+                  widget: "string",
+                  required: false,
+                }
+              - {
+                  label: "Access Key",
+                  name: "access_key",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Subject",
+                  name: "subject",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "hCaptcha Site Key",
+                  name: "hcaptcha_sitekey",
+                  widget: "string",
+                  required: false,
+                  hint: "Web3Forms. Leave empty to use site default.",
+                }
+              - {
+                  label: "Submit Button Text",
+                  name: "submit_text",
+                  widget: "string",
+                  default: "Send Message",
+                  required: false,
+                }
+              - {
+                  label: "Show Titles",
+                  name: "show_titles",
+                  widget: "boolean",
+                  default: true,
+                  required: false,
+                }
+
+  # Blog posts collection
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - {
+          label: "Featured Image",
+          name: "image",
+          widget: "image",
+          required: false,
+        }
+      - {
+          label: "Image Alt Text",
+          name: "image_alt",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }

@@ -1,0 +1,57 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Cache ImageMagick installation
+      - name: Cache ImageMagick
+        uses: actions/cache@v3
+        id: imagemagick-cache
+        with:
+          path: /usr/bin/convert
+          key: imagemagick-${{ runner.os }}
+
+      - name: Install ImageMagick
+        if: steps.imagemagick-cache.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: Configure bundle for deployment
+        run: |
+          bundle config set --local deployment false
+          bundle config set --local frozen false
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Build site with incremental builds
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Deploy with rsync over SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+
+          rsync -avz --delete -e "ssh -i private_key.pem -p ${{ secrets.PORT }} -o StrictHostKeyChecking=no" \
+            ./_site/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.TARGET }}
+
+          rm -f private_key.pem

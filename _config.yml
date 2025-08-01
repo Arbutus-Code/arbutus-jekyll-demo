@@ -1,0 +1,58 @@
+title: Arbutus Code
+description: Protecting Vancouver Island's iconic native trees
+logo: assets/media/logos/arbutus-tree-black.svg
+footer_logo: assets/media/logos/arbutus-tree-white.svg
+footer:
+  show_contact: true
+  show_social: true
+baseurl: ""
+url: "https://jekyll.arbutuscode.ca"
+permalink: pretty
+contact:
+  address: "456 Arbutus Way, BC, Canada"
+  email: "info@arbutuscode.ca"
+  phone: "+1 555-555-5555"
+socials:
+  - name: Twitter
+    url: "https://twitter.com/"
+    icon: twitter
+  - name: Facebook
+    url: "https://www.facebook.com/"
+    icon: facebook
+  - name: Instagram
+    url: "https://www.instagram.com/"
+    icon: instagram
+  - name: LinkedIn
+    url: "https://www.linkedin.com/"
+    icon: linkedin
+  - name: YouTube
+    url: "https://www.youtube.com/"
+    icon: youtube
+  - name: GitHub
+    url: "https://github.com/"
+    icon: github
+  - name: Email
+    url: "mailto:info@email.com"
+    icon: email
+web3forms:
+  access_key: "8052f29a-f66b-4f50-8e2a-8c5d440a0ac0"
+  subject: "Contact Form Submission from Arbutus Code Demo"
+  hcaptcha_sitekey: "50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+include:
+  - admin
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+theme: arbutus-theme

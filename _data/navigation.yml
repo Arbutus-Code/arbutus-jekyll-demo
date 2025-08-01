@@ -1,0 +1,24 @@
+main_nav_links:
+  - name: About
+    link: /about/
+  - name: Conservation Projects
+    link: /projects/
+  - name: Get Involved
+    link: /get-involved/
+  - name: Support Us
+    link: /donate/
+  - name: News & Updates
+    link: /updates/
+footer_nav_links:
+  - name: About
+    link: /about/
+  - name: Conservation Projects
+    link: /projects/
+  - name: Get Involved
+    link: /get-involved/
+  - name: Support Us
+    link: /donate/
+  - name: News & Updates
+    link: /updates/
+  - name: Privacy Policy
+    link: /privacy-policy/

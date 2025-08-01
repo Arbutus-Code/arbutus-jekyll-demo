@@ -1,0 +1,14 @@
+# Brand color configuration
+# These colors will be used to generate the _sass/_brand.scss file during build
+
+# Main brand color (Rust/bark color)
+color_primary: "#BF5841"
+
+# Darker version of primary color (Deep red/bark color)
+color_primary_dark: "#8C3730"
+
+# Lighter version of primary color (Peach/light bark color)
+color_primary_light: "#F29877"
+
+# Dark accent color (Dark blue/green forest color)
+color_accent_dark: "#101E26"
