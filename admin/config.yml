@@ -362,18 +362,23 @@ collections:
                   required: false,
                   hint: "Defaults to title if not provided",
                 }
-              - {
-                  label: "CTA Button Text",
-                  name: "cta_text",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "CTA Button URL",
-                  name: "cta_url",
-                  widget: "string",
-                  required: false,
-                }
+              - label: "CTA Button"
+                name: "cta"
+                widget: "object"
+                required: false
+                fields:
+                  - {
+                      label: "Button Text",
+                      name: "text",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Button URL",
+                      name: "url",
+                      widget: "string",
+                      required: false,
+                    }
 
           # Text Section (docs: text-section)
           - label: "Text Section"
@@ -482,30 +487,40 @@ collections:
                   widget: "string",
                   required: false,
                 }
-              - {
-                  label: "Primary Button Text",
-                  name: "primary_button_text",
-                  widget: "string",
-                  required: true,
-                }
-              - {
-                  label: "Primary Button URL",
-                  name: "primary_button_url",
-                  widget: "string",
-                  required: true,
-                }
-              - {
-                  label: "Secondary Button Text",
-                  name: "secondary_button_text",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Secondary Button URL",
-                  name: "secondary_button_url",
-                  widget: "string",
-                  required: false,
-                }
+              - label: "Primary Button"
+                name: "primary_button"
+                widget: "object"
+                required: true
+                fields:
+                  - {
+                      label: "Button Text",
+                      name: "text",
+                      widget: "string",
+                      required: true,
+                    }
+                  - {
+                      label: "Button URL",
+                      name: "url",
+                      widget: "string",
+                      required: true,
+                    }
+              - label: "Secondary Button"
+                name: "secondary_button"
+                widget: "object"
+                required: false
+                fields:
+                  - {
+                      label: "Button Text",
+                      name: "text",
+                      widget: "string",
+                      required: false,
+                    }
+                  - {
+                      label: "Button URL",
+                      name: "url",
+                      widget: "string",
+                      required: false,
+                    }
 
           # Featured Cards Section (docs: featured_cards)
           - label: "Featured Cards Section"

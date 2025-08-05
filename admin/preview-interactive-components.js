@@ -56,6 +56,33 @@ function renderHeroSection(section, index, getAsset) {
             },
           },
           section.get("subtitle")
+        ),
+      // CTA Button
+      section.get("cta") && section.getIn(["cta", "text"]) &&
+        h(
+          "div",
+          {
+            style: {
+              marginTop: "2rem",
+            },
+          },
+          h(
+            "button",
+            {
+              style: {
+                backgroundColor: "#3b82f6",
+                color: "white",
+                padding: "0.75rem 1.5rem",
+                borderRadius: "0.5rem",
+                border: "none",
+                fontSize: "1rem",
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "background-color 0.2s",
+              },
+            },
+            section.getIn(["cta", "text"])
+          )
         )
     ),
     section.get("image") &&
@@ -142,6 +169,73 @@ function renderCtaSection(section, index, getAsset) {
     );
   }
 
+  // Add buttons
+  var buttonContainer = [];
+  
+  // Primary button
+  if (section.get("primary_button") && section.getIn(["primary_button", "text"])) {
+    buttonContainer.push(
+      h(
+        "button",
+        {
+          style: {
+            backgroundColor: "#3b82f6",
+            color: "white",
+            padding: "0.75rem 1.5rem",
+            borderRadius: "0.5rem",
+            border: "none",
+            fontSize: "1rem",
+            fontWeight: "600",
+            cursor: "pointer",
+            marginRight: "1rem",
+            marginBottom: "0.5rem",
+          },
+        },
+        section.getIn(["primary_button", "text"])
+      )
+    );
+  }
+  
+  // Secondary button
+  if (section.get("secondary_button") && section.getIn(["secondary_button", "text"])) {
+    buttonContainer.push(
+      h(
+        "button",
+        {
+          style: {
+            backgroundColor: "transparent",
+            color: "white",
+            padding: "0.75rem 1.5rem",
+            borderRadius: "0.5rem",
+            border: "2px solid white",
+            fontSize: "1rem",
+            fontWeight: "600",
+            cursor: "pointer",
+            marginBottom: "0.5rem",
+          },
+        },
+        section.getIn(["secondary_button", "text"])
+      )
+    );
+  }
+  
+  // Add button container if there are buttons
+  if (buttonContainer.length > 0) {
+    children.push(
+      h(
+        "div",
+        {
+          style: {
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: section.get("center_content") ? "center" : "flex-start",
+            gap: "0.5rem",
+          },
+        },
+        buttonContainer
+      )
+    );
+  }
   
   return h(
     "div",
