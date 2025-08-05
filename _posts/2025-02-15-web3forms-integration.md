@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "Spring Arbutus Conservation Initiative Launches"
+title: Spring Arbutus Conservation Initiative Launches
 date: 2025-02-15
-tags: [conservation, habitat, volunteering]
-excerpt: "Join our new community-based effort to map and protect Arbutus trees across Vancouver Island."
-image: /assets/media/arbutus/trees-422203_1280.jpg
-image_alt: "Arbutus tree with distinctive red bark against blue sky"
+image_alt: Arbutus tree with distinctive red bark against blue sky
+tags:
+  - conservation
+  - habitat
+  - volunteering
+excerpt: Join our new community-based effort to map and protect Arbutus trees
+  across Vancouver Island.
+image: /assets/media/tree-5970576_1920.jpg
 ---
 
 We're excited to announce the launch of our Spring Arbutus Conservation Initiative, a comprehensive effort to document, protect, and restore Arbutus tree populations across Vancouver Island. This initiative brings together community volunteers, researchers, and conservation partners in a coordinated approach to address the challenges facing these iconic trees.
